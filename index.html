@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Programador Señor - Roma PD System">
   <title>Vehicle Inspection Form | Roma PD</title>
   <style>
     :root {
@@ -31,17 +30,12 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    /* Encabezado */
     header { text-align: center; border-bottom: 2px solid var(--police-red); margin-bottom: 20px; padding-bottom: 20px; }
     
-    /* IMAGEN LOCAL: Asegúrate que el archivo se llame logo.png y esté junto al HTML */
+    /* Imagen alojada localmente en el mismo repositorio */
     .logo-container img { 
-      max-width: 180px; 
-      height: auto; 
-      margin-bottom: 10px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 180px; height: auto; 
+      display: block; margin: 0 auto 10px auto;
     }
 
     h1 { margin: 0; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 1px; }
@@ -52,47 +46,41 @@
       padding: 10px; margin: 20px 0; text-align: center; color: var(--police-silver);
     }
 
-    .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-    
     fieldset { 
       border: 1px solid rgba(189, 195, 199, 0.3); 
       border-radius: 5px; margin-bottom: 25px; background: rgba(0,0,0,0.2);
     }
     legend { font-weight: bold; color: var(--police-red); padding: 0 10px; text-transform: uppercase; font-size: 0.9rem; }
 
-    .check-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 5px 20px; }
+    .grid-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px; }
     
-    .check-item { 
-      display: flex; align-items: center; justify-content: space-between; 
-      padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.05);
-      transition: background 0.2s;
-    }
-    .check-item:hover { background: rgba(255,255,255,0.03); }
-    .check-item label { font-size: 0.85rem; cursor: pointer; flex: 1; }
-    
-    input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--police-red); cursor: pointer; }
+    label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 0.9rem; }
 
-    input[type="text"], input[type="number"], input[type="date"], textarea {
+    /* Estilo para Dropdowns y Entradas */
+    select, input, textarea {
       width: 100%; padding: 12px; background: #000; border: 1px solid #34495e;
       color: #fff; border-radius: 4px; box-sizing: border-box; font-size: 1rem;
     }
+    select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white'%3E%3Cpath d='M0 0l6 6 6-6z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; }
 
-    /* Diagrama de Daños */
+    .check-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 5px 20px; }
+    .check-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--police-red); }
+
+    /* Diagrama */
     .damage-flex { display: flex; flex-wrap: wrap; gap: 30px; align-items: center; justify-content: center; }
     .svg-box { background: #fff; padding: 20px; border-radius: 8px; border: 2px solid var(--police-silver); }
     .car-part { fill: #d1d1d1; stroke: #333; stroke-width: 2; cursor: pointer; transition: 0.3s; }
-    .car-part.active { fill: var(--accent-red) !important; stroke: #000; }
+    .car-part.active { fill: var(--accent-red) !important; }
 
     .btn-submit { 
       background: var(--police-red); color: white; border: none; padding: 20px; 
-      width: 100%; font-size: 1.3rem; font-weight: bold; cursor: pointer; 
-      border-radius: 6px; text-transform: uppercase; margin-top: 15px;
-      box-shadow: 0 4px 0 #801919;
+      width: 100%; font-size: 1.3rem; font-weight: bold; cursor: pointer; border-radius: 6px; 
+      text-transform: uppercase; margin-top: 15px; box-shadow: 0 4px 0 #801919;
     }
     .btn-submit:hover { background: var(--accent-red); transform: translateY(-2px); }
-    .btn-submit:active { transform: translateY(2px); box-shadow: none; }
 
-    @media (max-width: 600px) { .meta-grid, .check-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .grid-fields, .check-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -108,131 +96,121 @@
     </header>
 
     <div class="instructions">
-      <strong>OFFICIAL NOTICE:</strong> DRIVER MUST INSPECT THE ASSIGNED VEHICLE BEFORE THE VEHICLE IS MOVED.
+      DRIVER MUST INSPECT THE ASSIGNED VEHICLE BEFORE THE VEHICLE IS MOVED.
     </div>
 
     <fieldset>
-      <legend>Unit & Odometer</legend>
-      <div class="meta-grid">
+      <legend>Information & Personnel</legend>
+      <div class="grid-fields">
+        <div>
+          <label for="off_name">OFFICER (Select Name)</label>
+          <select id="off_name" name="off_name" required>
+            <option value="" disabled selected>-- Select Officer --</option>
+            <option value="921">921 - Chief Iv Garza Jr.</option>
+            <option value="924">924 - Asst. Chief Francisco Garcia</option>
+            <option value="928">928 - Sgt. Mario Madrigal</option>
+            <option value="930">930 - Luis Alberto Morales</option>
+            <option value="931">931 - Alexis Javier Escoto</option>
+            <option value="932">932 - Sgt. Reynaldo Rodriguez Jr.</option>
+            <option value="933">933 - Saul Resendez</option>
+            <option value="934">934 - Amber Lee Garza</option>
+            <option value="935">935 - Nereo Garza Jr.</option>
+            <option value="937">937 - Roel Roberto Garcia Jr.</option>
+            <option value="938">938 - Lt. Juan Abel Alaniz</option>
+            <option value="940">940 - Lino Cavazos Jr.</option>
+            <option value="942">942 - Nelson Martinez</option>
+            <option value="943">943 - Jorge Daniel Oyervides Jr.</option>
+            <option value="945">945 - Jesse Guerra</option>
+            <option value="946">946 - Monique Eliane Rosa</option>
+            <option value="947">947 - Javier Herrera Jr.</option>
+            <option value="948">948 - Alex M. Garcia</option>
+            <option value="949">949 - Daniel de la Cruz</option>
+            <option value="950">950 - Josue Isai Resendez</option>
+            <option value="952">952 - Cpl. Osiel Josue Canales</option>
+            <option value="956">956 - Christian Emmanuel Diaz</option>
+            <option value="957">957 - Cpl. Leonel Garza Jr.</option>
+            <option value="2203">2203 - Det. Roberto Garza</option>
+            <option value="2204">2204 - Det. Ivan Garza</option>
+            <option value="2206">2206 - Francisco Xavier Treviño</option>
+          </select>
+        </div>
         <div>
           <label for="tag">Vehicle Tag No.</label>
-          <input type="text" id="tag" name="tag" placeholder="Unit ID" required>
+          <input type="text" id="tag" name="tag" required placeholder="Unit #">
         </div>
+      </div>
+      <div class="grid-fields">
         <div>
-          <label for="odometer">Current Odometer</label>
-          <input type="number" id="odometer" name="odometer" placeholder="Miles" required>
+          <label for="odometer">Odometer Number</label>
+          <input type="number" id="odometer" name="odometer" required>
           <small id="odo-warning" style="color:var(--accent-red); display:none;">Error: Mileage lower than last record.</small>
         </div>
+        <div>
+          <label for="off_date">Date</label>
+          <input type="date" id="off_date" name="off_date" required>
+        </div>
       </div>
     </fieldset>
 
     <fieldset>
-      <legend>WITH ENGINE OFF</legend>
+      <legend>Inspección Visual & Mecánica</legend>
       <div class="check-grid">
-        <div class="check-item"><label for="oil">Engine Oil Within Limits</label><input type="checkbox" id="oil"></div>
-        <div class="check-item"><label for="belts">Fan Belts Condition</label><input type="checkbox" id="belts"></div>
-        <div class="check-item"><label for="coolant">Coolant Level Acceptable</label><input type="checkbox" id="coolant"></div>
-        <div class="check-item"><label for="washer">Washer Fluid Level</label><input type="checkbox" id="washer"></div>
-        <div class="check-item"><label for="ext_clean">Exterior Clean</label><input type="checkbox" id="ext_clean"></div>
-        <div class="check-item"><label for="int_clean">Interior Clean</label><input type="checkbox" id="int_clean"></div>
-        <div class="check-item"><label for="wipers">Windshield Wipers</label><input type="checkbox" id="wipers"></div>
-        <div class="check-item"><label for="seatbelts">Seat Belt Function</label><input type="checkbox" id="seatbelts"></div>
-        <div class="check-item"><label for="inflation">Tire Inflation (PSI)</label><input type="checkbox" id="inflation"></div>
-        <div class="check-item"><label for="tread">Tire Tread/Sidewalls</label><input type="checkbox" id="tread"></div>
+        <div class="check-item"><label for="oil">Engine Oil Limits</label><input type="checkbox" id="oil"></div>
+        <div class="check-item"><label for="belts">Fan Belts / Damage</label><input type="checkbox" id="belts"></div>
+        <div class="check-item"><label for="coolant">Coolant Level</label><input type="checkbox" id="coolant"></div>
+        <div class="check-item"><label for="lights">Lights (HI/LO/Brake)</label><input type="checkbox" id="lights"></div>
+        <div class="check-item"><label for="siren">Siren & Emergency Lights</label><input type="checkbox" id="siren"></div>
+        <div class="check-item"><label for="tires">Tire Tread & Inflation</label><input type="checkbox" id="tires"></div>
       </div>
     </fieldset>
 
     <fieldset>
-      <legend>ENGINE RUNNING</legend>
-      <div class="check-grid">
-        <div class="check-item"><label for="lights">Headlights (HI/LO)</label><input type="checkbox" id="lights"></div>
-        <div class="check-item"><label for="signals">Turn Signals (L/R)</label><input type="checkbox" id="signals"></div>
-        <div class="check-item"><label for="brake_lights">Brake Lights (inc. 3rd)</label><input type="checkbox" id="brake_lights"></div>
-        <div class="check-item"><label for="reverse">Reverse Lights</label><input type="checkbox" id="reverse"></div>
-        <div class="check-item"><label for="leaks">No Fluid Leaks</label><input type="checkbox" id="leaks"></div>
-        <div class="check-item"><label for="horn">Horn Sounds</label><input type="checkbox" id="horn"></div>
-        <div class="check-item"><label for="mirrors">Mirrors Clean/Func.</label><input type="checkbox" id="mirrors"></div>
-        <div class="check-item"><label for="siren">Emergency Lights/Siren</label><input type="checkbox" id="siren"></div>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Visual Damage Report</legend>
+      <legend>Vehicle Damage Map</legend>
       <div class="damage-flex">
         <div class="svg-box">
           <svg viewBox="0 0 200 350" width="180">
-            <rect x="55" y="40" width="90" height="260" rx="20" class="car-part" data-id="dmg_body" /> <path d="M 65 110 Q 100 95 135 110 L 130 140 Q 100 130 70 140 Z" class="car-part" data-id="dmg_glass" /> <rect x="35" y="70" width="18" height="40" rx="4" class="car-part" data-id="dmg_tires" /> <rect x="147" y="70" width="18" height="40" rx="4" class="car-part" data-id="dmg_tires" /> <rect x="35" y="230" width="18" height="40" rx="4" class="car-part" data-id="dmg_tires" /> <rect x="147" y="230" width="18" height="40" rx="4" class="car-part" data-id="dmg_tires" /> </svg>
+            <rect x="55" y="40" width="90" height="260" rx="20" class="car-part" data-id="dmg_body" />
+            <path d="M 65 110 Q 100 95 135 110 L 130 140 Q 100 130 70 140 Z" class="car-part" data-id="dmg_glass" />
+            <rect x="35" y="70" width="18" height="40" rx="4" class="car-part" data-id="dmg_tires" />
+            <rect x="147" y="70" width="18" height="40" rx="4" class="car-part" data-id="dmg_tires" />
+          </svg>
         </div>
-        <div style="flex:1; min-width:250px;">
-          <div class="check-item"><label for="dmg_body">New Body Damage Found</label><input type="checkbox" id="dmg_body"></div>
-          <div class="check-item"><label for="dmg_glass">Windshield/Window Crack</label><input type="checkbox" id="dmg_glass"></div>
-          <div class="check-item"><label for="dmg_tires">Tire Damage Noted</label><input type="checkbox" id="dmg_tires"></div>
-          <label style="margin-top:15px; display:block;">REPAIR NOTES:</label>
-          <textarea id="notes" rows="4" placeholder="Describe any missing/broken items..."></textarea>
-        </div>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Authentication</legend>
-      <div class="meta-grid">
-        <div>
-          <label>OFFICER (Print Name)</label>
-          <input type="text" id="off_name" required>
-          <label style="margin-top:10px;">Date</label>
-          <input type="date" id="off_date" required>
-        </div>
-        <div>
-          <label>SERGEANT (Print Name)</label>
-          <input type="text" id="ser_name">
-          <label style="margin-top:10px;">Date</label>
-          <input type="date" id="ser_date">
+        <div style="flex:1;">
+          <div class="check-item"><label for="dmg_body">Body Damage</label><input type="checkbox" id="dmg_body"></div>
+          <div class="check-item"><label for="dmg_glass">Glass Damage</label><input type="checkbox" id="dmg_glass"></div>
+          <textarea id="notes" rows="4" placeholder="Additional Notes..."></textarea>
         </div>
       </div>
     </fieldset>
 
-    <button type="submit" class="btn-submit">Submit Official Report</button>
+    <button type="submit" class="btn-submit">Submit Inspection</button>
   </form>
 </main>
 
 <script>
-  // Simulación de validación de odómetro (Evita errores de dedo)
-  const lastOdometer = 45200; // Esto vendría de tu base de datos
-  const odoInput = document.getElementById('odometer');
-  const odoWarning = document.getElementById('odo-warning');
-
-  odoInput.addEventListener('input', () => {
-    if(odoInput.value > 0 && odoInput.value < lastOdometer) {
-      odoWarning.style.display = 'block';
-      odoInput.style.borderColor = 'var(--accent-red)';
-    } else {
-      odoWarning.style.display = 'none';
-      odoInput.style.borderColor = '#34495e';
-    }
-  });
-
-  // Vincular Diagrama SVG con Checkboxes
+  // Sincronización de Diagrama
   document.querySelectorAll('.car-part').forEach(part => {
     part.addEventListener('click', function() {
       const id = this.getAttribute('data-id');
       const chk = document.getElementById(id);
-      if(chk) {
-        chk.checked = !chk.checked;
-        this.classList.toggle('active', chk.checked);
-      }
+      if(chk) { chk.checked = !chk.checked; this.classList.toggle('active', chk.checked); }
     });
   });
 
-  // Manejo del Envío
+  // Validación básica de odómetro
+  const lastOdo = 10000; // Simulación
   document.getElementById('inspectionForm').addEventListener('submit', (e) => {
-    if(odoInput.value < lastOdometer) {
+    const currentOdo = document.getElementById('odometer').value;
+    if(currentOdo < lastOdo) {
       e.preventDefault();
-      alert('Error: Odometer reading cannot be less than previous record.');
-      return;
+      alert('Error: Odometer reading is lower than previous record.');
+    } else {
+      alert('Form submitted successfully for Officer ' + document.getElementById('off_name').value);
     }
-    e.preventDefault();
-    alert('Inspection Report logged into Roma PD Secure Database.');
   });
+
+  // Autoseleccionar fecha de hoy
+  document.getElementById('off_date').valueAsDate = new Date();
 </script>
 
 </body>
