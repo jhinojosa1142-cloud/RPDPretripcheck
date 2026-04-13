@@ -3,53 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vehicle Inspection | Roma PD</title>
+  <title>Roma PD | Vehicle Inspection</title>
   <style>
-    :root {
-      --police-black: #0a0e14;
-      --police-navy: #1b2631;
-      --police-red: #c62828;
-      --police-silver: #bdc3c7;
-      --text-white: #ecf0f1;
-      --accent-red: #ff1744;
-    }
+    :root { --police-black: #0a0e14; --police-navy: #1b2631; --police-red: #c62828; --police-silver: #bdc3c7; --text-white: #ecf0f1; }
     body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--police-black); color: var(--text-white); margin: 0; padding: 10px; }
-    .container { max-width: 950px; margin: 0 auto; background: var(--police-navy); padding: 25px; border: 1px solid var(--police-silver); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .container { max-width: 900px; margin: 0 auto; background: var(--police-navy); padding: 25px; border: 1px solid var(--police-silver); border-radius: 8px; }
     header { text-align: center; border-bottom: 2px solid var(--police-red); margin-bottom: 20px; padding-bottom: 15px; }
-    .logo-container img { max-width: 150px; height: auto; display: block; margin: 0 auto 10px auto; }
-    h1 { margin: 0; font-size: 1.6rem; text-transform: uppercase; letter-spacing: 1px; }
-    fieldset { border: 1px solid rgba(189, 195, 199, 0.3); border-radius: 5px; margin-bottom: 20px; background: rgba(0,0,0,0.2); }
+    .logo-container img { max-width: 140px; display: block; margin: 0 auto 10px auto; }
+    fieldset { border: 1px solid rgba(189,195,199,0.3); border-radius: 5px; margin-bottom: 20px; background: rgba(0,0,0,0.2); }
     legend { font-weight: bold; color: var(--police-red); padding: 0 10px; text-transform: uppercase; font-size: 0.85rem; }
-    .grid-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 15px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 15px; }
     label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.8rem; color: var(--police-silver); }
-    select, input, textarea { width: 100%; padding: 10px; background: #000; border: 1px solid #34495e; color: #fff; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem; }
-    .check-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 5px 20px; }
-    .check-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    select, input, textarea { width: 100%; padding: 10px; background: #000; border: 1px solid #34495e; color: #fff; border-radius: 4px; box-sizing: border-box; }
+    .check-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 5px 20px; }
+    .check-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
     input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--police-red); cursor: pointer; }
-    .damage-section { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: center; }
-    .svg-box { background: #fff; padding: 15px; border-radius: 8px; }
-    .car-part { fill: #d1d1d1; stroke: #333; stroke-width: 2; cursor: pointer; }
-    .car-part.active { fill: var(--accent-red) !important; }
     .btn-submit { background: var(--police-red); color: white; border: none; padding: 18px; width: 100%; font-size: 1.2rem; font-weight: bold; cursor: pointer; border-radius: 6px; text-transform: uppercase; margin-top: 10px; }
-    .btn-submit:disabled { background: #555; cursor: not-allowed; }
+    .btn-submit:disabled { background: #555; }
   </style>
 </head>
 <body>
-
 <main class="container">
   <form id="inspectionForm">
     <header>
-      <div class="logo-container"><img src="logo.png" alt="Roma PD"></div>
+      <div class="logo-container"><img src="logo.png" alt="Roma PD Logo"></div>
       <h1>Roma Police Department</h1>
       <div style="color:var(--police-red); font-weight:bold;">VEHICLE INSPECTION FORM</div>
     </header>
 
     <fieldset>
       <legend>Personnel & Unit Selection</legend>
-      <div class="grid-fields">
+      <div class="grid">
         <div>
           <label>OFFICER NAME</label>
-          <select id="off_name" required>
+          <select id="officer" required>
             <option value="" disabled selected>-- Select Officer --</option>
             <option value="921 - Chief Iv Garza Jr.">921 - Chief Iv Garza Jr.</option>
             <option value="924 - Asst. Chief Francisco Garcia">924 - Asst. Chief Francisco Garcia</option>
@@ -81,7 +68,7 @@
         </div>
         <div>
           <label>VEHICLE UNIT #</label>
-          <select id="unit_no" required>
+          <select id="unit" required>
             <option value="" disabled selected>-- Select Unit --</option>
             <option value="100 - 2012 Dodge Challenger">Unit 100 - 2012 Dodge Challenger</option>
             <option value="101 - 2017 Ford Explorer">Unit 101 - 2017 Ford Explorer</option>
@@ -109,34 +96,26 @@
           </select>
         </div>
       </div>
-      <div class="grid-fields">
+      <div class="grid">
         <div><label>ODOMETER</label><input type="number" id="odometer" required></div>
-        <div><label>DATE</label><input type="date" id="inspection_date" required></div>
+        <div><label>DATE</label><input type="date" id="date" required></div>
       </div>
     </fieldset>
 
     <fieldset>
-      <legend>Quick Checklist</legend>
+      <legend>Checklist</legend>
       <div class="check-grid">
-        <div class="check-item"><label>Fluids & Oil OK</label><input type="checkbox" id="oil"></div>
+        <div class="check-item"><label>Engine Oil / Fluids OK</label><input type="checkbox" id="oil"></div>
         <div class="check-item"><label>Lights & Signals OK</label><input type="checkbox" id="lights"></div>
         <div class="check-item"><label>Tires & Pressure OK</label><input type="checkbox" id="tires"></div>
-        <div class="check-item"><label>Siren & Emergency OK</label><input type="checkbox" id="siren"></div>
-        <div class="check-item"><label style="color:var(--accent-red); font-weight:bold;">REPORT NEW DAMAGE</label><input type="checkbox" id="dmg_any"></div>
+        <div class="check-item"><label>Emergency Siren/Lights OK</label><input type="checkbox" id="siren"></div>
+        <div class="check-item" style="color:var(--accent-red); font-weight:bold;"><label>REPORT NEW DAMAGE</label><input type="checkbox" id="damage_reported"></div>
       </div>
     </fieldset>
 
     <fieldset>
-      <legend>Visual Damage Map & Notes</legend>
-      <div class="damage-section">
-        <div class="svg-box">
-          <svg viewBox="0 0 200 350" width="160">
-            <rect x="55" y="40" width="90" height="260" rx="20" class="car-part" onclick="markDamage(this)"/>
-            <path d="M 65 110 Q 100 95 135 110 L 130 140 Q 100 130 70 140 Z" class="car-part" onclick="markDamage(this)"/>
-          </svg>
-        </div>
-        <div style="flex:1;"><textarea id="notes" rows="6" placeholder="Additional notes..."></textarea></div>
-      </div>
+      <legend>Notes & Remarks</legend>
+      <textarea id="notes" rows="4" placeholder="Enter details..."></textarea>
     </fieldset>
 
     <button type="submit" id="submitBtn" class="btn-submit">Submit Inspection</button>
@@ -144,13 +123,7 @@
 </main>
 
 <script>
-  document.getElementById('inspection_date').valueAsDate = new Date();
-  
-  function markDamage(el) {
-    el.classList.toggle('active');
-    document.getElementById('dmg_any').checked = true;
-  }
-
+  document.getElementById('date').valueAsDate = new Date();
   const FLOW_URL = "https://defaultc7482209c22b424696d4c965bb5a70.b0.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/a32eaff0a7bb4c1bbf730df99b5f3525/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=i3nXR2iPrDMLenk3RsZCZfMr4FVBZgH00dxCpDxAZ04";
 
   document.getElementById('inspectionForm').addEventListener('submit', async (e) => {
@@ -160,12 +133,12 @@
     btn.innerText = "Sending...";
 
     const payload = {
-      officer: document.getElementById('off_name').value,
-      unit: document.getElementById('unit_no').value,
+      officer: document.getElementById('officer').value,
+      unit: document.getElementById('unit').value,
       odometer: parseInt(document.getElementById('odometer').value),
-      date: document.getElementById('inspection_date').value,
+      date: document.getElementById('date').value,
       notes: document.getElementById('notes').value,
-      damage_reported: document.getElementById('dmg_any').checked
+      damage_reported: document.getElementById('damage_reported').checked
     };
 
     try {
@@ -174,9 +147,9 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      if(resp.ok) { alert('✅ Sent to SharePoint!'); e.target.reset(); }
-      else { alert('❌ Error in Flow'); }
-    } catch(err) { alert('❌ Connection Error'); }
+      if(resp.ok) { alert('✅ Sent Successfully!'); e.target.reset(); document.getElementById('date').valueAsDate = new Date(); }
+      else { alert('❌ Flow Error. Check Schema.'); }
+    } catch(err) { alert('❌ Connection Error.'); }
     finally { btn.disabled = false; btn.innerText = "Submit Inspection"; }
   });
 </script>
