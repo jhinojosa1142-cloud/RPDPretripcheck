@@ -3,23 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roma PD | Vehicle Inspection</title>
+  <title>Roma PD | Vehicle Inspection Full</title>
   <style>
-    :root { --police-black: #0a0e14; --police-navy: #1b2631; --police-red: #c62828; --police-silver: #bdc3c7; --text-white: #ecf0f1; }
+    :root { --police-black: #0a0e14; --police-navy: #1b2631; --police-red: #c62828; --police-silver: #bdc3c7; --text-white: #ecf0f1; --accent-red: #ff1744; }
     body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--police-black); color: var(--text-white); margin: 0; padding: 10px; }
-    .container { max-width: 900px; margin: 0 auto; background: var(--police-navy); padding: 25px; border: 1px solid var(--police-silver); border-radius: 8px; }
+    .container { max-width: 950px; margin: 0 auto; background: var(--police-navy); padding: 25px; border: 1px solid var(--police-silver); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     header { text-align: center; border-bottom: 2px solid var(--police-red); margin-bottom: 20px; padding-bottom: 15px; }
     .logo-container img { max-width: 140px; display: block; margin: 0 auto 10px auto; }
     fieldset { border: 1px solid rgba(189,195,199,0.3); border-radius: 5px; margin-bottom: 20px; background: rgba(0,0,0,0.2); }
     legend { font-weight: bold; color: var(--police-red); padding: 0 10px; text-transform: uppercase; font-size: 0.85rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 15px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-bottom: 15px; }
     label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.8rem; color: var(--police-silver); }
     select, input, textarea { width: 100%; padding: 10px; background: #000; border: 1px solid #34495e; color: #fff; border-radius: 4px; box-sizing: border-box; }
-    .check-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 5px 20px; }
-    .check-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--police-red); cursor: pointer; }
-    .btn-submit { background: var(--police-red); color: white; border: none; padding: 18px; width: 100%; font-size: 1.2rem; font-weight: bold; cursor: pointer; border-radius: 6px; text-transform: uppercase; margin-top: 10px; }
-    .btn-submit:disabled { background: #555; }
+    .check-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 5px 20px; }
+    .check-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.85rem; }
+    input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--police-red); cursor: pointer; }
+    .damage-section { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: center; margin-top: 10px; }
+    .svg-box { background: #fff; padding: 15px; border-radius: 8px; border: 2px solid var(--police-silver); }
+    .car-part { fill: #d1d1d1; stroke: #333; stroke-width: 2; cursor: pointer; transition: 0.3s; }
+    .car-part.active { fill: var(--accent-red) !important; }
+    .btn-submit { background: var(--police-red); color: white; border: none; padding: 18px; width: 100%; font-size: 1.2rem; font-weight: bold; cursor: pointer; border-radius: 6px; text-transform: uppercase; margin-top: 10px; box-shadow: 0 4px 0 #801919; }
+    .btn-submit:disabled { background: #555; box-shadow: none; cursor: not-allowed; }
   </style>
 </head>
 <body>
@@ -32,7 +36,7 @@
     </header>
 
     <fieldset>
-      <legend>Personnel & Unit Selection</legend>
+      <legend>Information & Personnel</legend>
       <div class="grid">
         <div>
           <label>OFFICER NAME</label>
@@ -47,52 +51,20 @@
             <option value="933 - Saul Resendez">933 - Saul Resendez</option>
             <option value="934 - Amber Lee Garza">934 - Amber Lee Garza</option>
             <option value="935 - Nereo Garza Jr.">935 - Nereo Garza Jr.</option>
-            <option value="937 - Roel Roberto Garcia Jr.">937 - Roel Roberto Garcia Jr.</option>
             <option value="938 - Lt. Juan Abel Alaniz">938 - Lt. Juan Abel Alaniz</option>
-            <option value="940 - Lino Cavazos Jr.">940 - Lino Cavazos Jr.</option>
-            <option value="942 - Nelson Martinez">942 - Nelson Martinez</option>
-            <option value="943 - Jorge Daniel Oyervides Jr.">943 - Jorge Daniel Oyervides Jr.</option>
-            <option value="945 - Jesse Guerra">945 - Jesse Guerra</option>
-            <option value="946 - Monique Eliane Rosa">946 - Monique Eliane Rosa</option>
-            <option value="947 - Javier Herrera Jr.">947 - Javier Herrera Jr.</option>
-            <option value="948 - Alex M. Garcia">948 - Alex M. Garcia</option>
-            <option value="949 - Daniel de la Cruz">949 - Daniel de la Cruz</option>
-            <option value="950 - Josue Isai Resendez">950 - Josue Isai Resendez</option>
             <option value="952 - Cpl. Osiel Josue Canales">952 - Cpl. Osiel Josue Canales</option>
-            <option value="956 - Christian Emmanuel Diaz">956 - Christian Emmanuel Diaz</option>
-            <option value="957 - Cpl. Leonel Garza Jr.">957 - Cpl. Leonel Garza Jr.</option>
             <option value="2203 - Det. Roberto Garza">2203 - Det. Roberto Garza</option>
-            <option value="2204 - Det. Ivan Garza">2204 - Det. Ivan Garza</option>
-            <option value="2206 - Francisco Xavier Treviño">2206 - Francisco Xavier Treviño</option>
           </select>
         </div>
         <div>
           <label>VEHICLE UNIT #</label>
           <select id="unit" required>
             <option value="" disabled selected>-- Select Unit --</option>
-            <option value="100 - 2012 Dodge Challenger">Unit 100 - 2012 Dodge Challenger</option>
-            <option value="101 - 2017 Ford Explorer">Unit 101 - 2017 Ford Explorer</option>
-            <option value="102 - 2016 Ford Explorer">Unit 102 - 2016 Ford Explorer</option>
-            <option value="104 - 2024 Ford Explorer">Unit 104 - 2024 Ford Explorer</option>
-            <option value="105 - 2022 Dodge Charger">Unit 105 - 2022 Dodge Charger</option>
-            <option value="106 - 2021 Dodge Charger">Unit 106 - 2021 Dodge Charger</option>
-            <option value="107 - 2021 Dodge Charger">Unit 107 - 2021 Dodge Charger</option>
-            <option value="108 - 2024 Chevrolet Tahoe">Unit 108 - 2024 Chevrolet Tahoe</option>
-            <option value="109 - 2024 Chevrolet Tahoe">Unit 109 - 2024 Chevrolet Tahoe</option>
-            <option value="110 - 2018 Chevrolet Tahoe">Unit 110 - 2018 Chevrolet Tahoe</option>
-            <option value="111 - 2009 Ford F-250">Unit 111 - 2009 Ford F-250</option>
-            <option value="112 - 2023 Dodge Durango">Unit 112 - 2023 Dodge Durango</option>
-            <option value="113 - 2018 Chevrolet Tahoe">Unit 113 - 2018 Chevrolet Tahoe</option>
-            <option value="114 - 2017 Ford Fusion">Unit 114 - 2017 Ford Fusion</option>
-            <option value="116 - 2016 Chevrolet Tahoe">Unit 116 - 2016 Chevrolet Tahoe</option>
-            <option value="117 - 2016 Chevrolet Tahoe">Unit 117 - 2016 Chevrolet Tahoe</option>
-            <option value="118 - 2019 Ford F-150">Unit 118 - 2019 Ford F-150</option>
-            <option value="119 - 2019 Ford F-150">Unit 119 - 2019 Ford F-150</option>
-            <option value="120 - 2021 Ford F-150">Unit 120 - 2021 Ford F-150</option>
-            <option value="121 - 2021 Ford F-150">Unit 121 - 2021 Ford F-150</option>
-            <option value="122 - 2024 Dodge Durango">Unit 122 - 2024 Dodge Durango</option>
-            <option value="123 - 2024 Chevrolet Tahoe">Unit 123 - 2024 Chevrolet Tahoe</option>
-            <option value="124 - 2024 Dodge Durango">Unit 124 - 2024 Dodge Durango</option>
+            <option value="100 - Dodge Challenger">Unit 100 - 2012 Dodge Challenger</option>
+            <option value="105 - Dodge Charger">Unit 105 - 2022 Dodge Charger</option>
+            <option value="108 - Chevy Tahoe">Unit 108 - 2024 Chevrolet Tahoe</option>
+            <option value="112 - Dodge Durango">Unit 112 - 2023 Dodge Durango</option>
+            <option value="120 - Ford F-150">Unit 120 - 2021 Ford F-150</option>
           </select>
         </div>
       </div>
@@ -103,22 +75,49 @@
     </fieldset>
 
     <fieldset>
-      <legend>Checklist</legend>
+      <legend>With Engine Off</legend>
       <div class="check-grid">
-        <div class="check-item"><label>Engine Oil / Fluids OK</label><input type="checkbox" id="oil"></div>
-        <div class="check-item"><label>Lights & Signals OK</label><input type="checkbox" id="lights"></div>
-        <div class="check-item"><label>Tires & Pressure OK</label><input type="checkbox" id="tires"></div>
-        <div class="check-item"><label>Emergency Siren/Lights OK</label><input type="checkbox" id="siren"></div>
-        <div class="check-item" style="color:var(--accent-red); font-weight:bold;"><label>REPORT NEW DAMAGE</label><input type="checkbox" id="damage_reported"></div>
+        <div class="check-item"><label>Engine Oil Level</label><input type="checkbox" class="inspect-item"></div>
+        <div class="check-item"><label>Fan Belts Condition</label><input type="checkbox" class="inspect-item"></div>
+        <div class="check-item"><label>Coolant Level</label><input type="checkbox" class="inspect-item"></div>
+        <div class="check-item"><label>Washer Fluid Level</label><input type="checkbox" class="inspect-item"></div>
+        <div class="check-item"><label>Exterior Cleanliness</label><input type="checkbox" class="inspect-item"></div>
+        <div class="check-item"><label>Interior Cleanliness</label><input type="checkbox" class="inspect-item"></div>
+        <div class="check-item"><label>Tire Inflation & Tread</label><input type="checkbox" class="inspect-item"></div>
       </div>
     </fieldset>
 
     <fieldset>
-      <legend>Notes & Remarks</legend>
-      <textarea id="notes" rows="4" placeholder="Enter details..."></textarea>
+      <legend>With Engine On</legend>
+      <div class="check-grid">
+        <div class="check-item"><label>Headlights (HI/LO)</label><input type="checkbox" class="inspect-item"></div>
+        <div class="check-item"><label>Turn Signals</label><input type="checkbox" class="inspect-item"></div>
+        <div class="check-item"><label>Brake Lights (inc. 3rd)</label><input type="checkbox" class="inspect-item"></div>
+        <div class="check-item"><label>Reverse Lights</label><input type="checkbox" class="inspect-item"></div>
+        <div class="check-item"><label>Horn & Mirrors</label><input type="checkbox" class="inspect-item"></div>
+        <div class="check-item"><label>Emergency Lights & Siren</label><input type="checkbox" class="inspect-item"></div>
+        <div class="check-item" style="color:var(--accent-red); font-weight:bold;"><label>NEW DAMAGE DISCOVERED</label><input type="checkbox" id="damage_reported"></div>
+      </div>
     </fieldset>
 
-    <button type="submit" id="submitBtn" class="btn-submit">Submit Inspection</button>
+    <fieldset>
+      <legend>Visual Damage & Notes</legend>
+      <div class="damage-section">
+        <div class="svg-box">
+          <svg viewBox="0 0 200 350" width="160" id="carMap">
+            <rect x="55" y="40" width="90" height="260" rx="20" class="car-part" onclick="togglePart(this)"/>
+            <path d="M 65 110 Q 100 95 135 110 L 130 140 Q 100 130 70 140 Z" class="car-part" onclick="togglePart(this)"/>
+            <rect x="35" y="70" width="18" height="40" rx="4" class="car-part" onclick="togglePart(this)"/>
+            <rect x="147" y="70" width="18" height="40" rx="4" class="car-part" onclick="togglePart(this)"/>
+            <rect x="35" y="230" width="18" height="40" rx="4" class="car-part" onclick="togglePart(this)"/>
+            <rect x="147" y="230" width="18" height="40" rx="4" class="car-part" onclick="togglePart(this)"/>
+          </svg>
+        </div>
+        <div style="flex:1;"><label>NOTES (Damage Details, Missing Items):</label><textarea id="notes" rows="8" placeholder="Enter inspection notes..."></textarea></div>
+      </div>
+    </fieldset>
+
+    <button type="submit" id="submitBtn" class="btn-submit">Submit Official Report</button>
   </form>
 </main>
 
@@ -126,18 +125,22 @@
   document.getElementById('date').valueAsDate = new Date();
   const FLOW_URL = "https://defaultc7482209c22b424696d4c965bb5a70.b0.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/a32eaff0a7bb4c1bbf730df99b5f3525/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=i3nXR2iPrDMLenk3RsZCZfMr4FVBZgH00dxCpDxAZ04";
 
+  function togglePart(el) {
+    el.classList.toggle('active');
+    document.getElementById('damage_reported').checked = true;
+  }
+
   document.getElementById('inspectionForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.innerText = "Sending...";
+    btn.disabled = true; btn.innerText = "Processing...";
 
     const payload = {
       officer: document.getElementById('officer').value,
       unit: document.getElementById('unit').value,
-      odometer: parseInt(document.getElementById('odometer').value),
+      odometer: document.getElementById('odometer').value.toString(),
       date: document.getElementById('date').value,
-      notes: document.getElementById('notes').value,
+      notes: document.getElementById('notes').value || "No notes",
       damage_reported: document.getElementById('damage_reported').checked
     };
 
@@ -147,10 +150,10 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      if(resp.ok) { alert('✅ Sent Successfully!'); e.target.reset(); document.getElementById('date').valueAsDate = new Date(); }
-      else { alert('❌ Flow Error. Check Schema.'); }
-    } catch(err) { alert('❌ Connection Error.'); }
-    finally { btn.disabled = false; btn.innerText = "Submit Inspection"; }
+      if(resp.ok) { alert('✅ Report Sent Successfully'); e.target.reset(); document.getElementById('date').valueAsDate = new Date(); }
+      else { alert('❌ Flow Schema Error'); }
+    } catch(err) { alert('❌ Connection Error'); }
+    finally { btn.disabled = false; btn.innerText = "Submit Official Report"; }
   });
 </script>
 </body>
