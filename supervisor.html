@@ -20,113 +20,112 @@
       background-color: var(--police-black); 
       color: var(--text-white); 
       margin: 0; padding: 20px;
+      line-height: 1.6;
     }
 
     .dashboard-container { 
-      max-width: 1100px; margin: 0 auto; 
+      max-width: 1200px; margin: 0 auto; 
       background: var(--police-navy); 
-      padding: 25px; border-radius: 8px; 
+      padding: 30px; border-radius: 8px; 
       border-top: 5px solid var(--police-red);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.8);
     }
 
     header { 
       display: flex; justify-content: space-between; align-items: center;
       border-bottom: 1px solid rgba(189,195,199,0.2);
-      margin-bottom: 25px; padding-bottom: 15px;
+      margin-bottom: 25px; padding-bottom: 20px;
     }
 
-    .logo-container img { height: 60px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
+    .logo-container img { height: 70px; }
 
     .search-panel { 
       display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-      gap: 15px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 6px;
-      margin-bottom: 30px; border-left: 3px solid var(--police-red);
+      gap: 20px; background: rgba(0,0,0,0.4); padding: 25px; border-radius: 6px;
+      margin-bottom: 30px; border: 1px solid rgba(189,195,199,0.1);
     }
 
-    label { display: block; font-size: 0.75rem; font-weight: bold; color: var(--police-silver); margin-bottom: 5px; text-transform: uppercase; }
+    label { display: block; font-size: 0.75rem; font-weight: bold; color: var(--police-silver); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
     
     input { 
       width: 100%; padding: 12px; background: #000; border: 1px solid #34495e; 
-      color: #fff; border-radius: 4px; box-sizing: border-box; font-size: 0.9rem;
+      color: #fff; border-radius: 4px; box-sizing: border-box; font-size: 1rem;
     }
+    input:focus { border-color: var(--police-red); outline: none; }
 
     .btn-search { 
       background: var(--accent-blue); color: white; border: none; padding: 12px; 
       font-weight: bold; cursor: pointer; border-radius: 4px; align-self: end;
-      text-transform: uppercase; transition: all 0.3s ease;
+      text-transform: uppercase; transition: all 0.3s ease; height: 48px;
     }
     .btn-search:hover { background: #3498db; transform: translateY(-2px); }
-    .btn-search:active { transform: translateY(0); }
 
-    /* Resultados */
-    .results-container { overflow-x: auto; background: rgba(0,0,0,0.2); border-radius: 4px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 0; }
-    th { background: #000; color: var(--police-red); text-align: left; padding: 15px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
-    td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
-    tr:hover { background: rgba(255,255,255,0.08); }
+    /* Tabla de Resultados */
+    .results-wrapper { overflow-x: auto; border-radius: 4px; background: rgba(0,0,0,0.2); }
+    table { width: 100%; border-collapse: collapse; min-width: 800px; }
+    th { background: #000; color: var(--police-red); text-align: left; padding: 15px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid var(--police-red); }
+    td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; }
+    tr:hover { background: rgba(255,255,255,0.05); }
 
-    .status-badge { padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
-    .status-damage { background: #7b1f1f; color: #ffbcbc; border: 1px solid #ff1744; }
-    .status-ok { background: #1b4d2e; color: #bcffcc; border: 1px solid var(--success-green); }
+    /* Etiquetas de Estado */
+    .badge { padding: 5px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; display: inline-block; }
+    .badge-danger { background: #7b1f1f; color: #ffbcbc; border: 1px solid #ff1744; }
+    .badge-success { background: #1b4d2e; color: #bcffcc; border: 1px solid var(--success-green); }
 
-    .btn-view { 
+    .btn-action { 
       background: transparent; border: 1px solid var(--police-silver); color: var(--police-silver);
-      padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; transition: 0.2s;
+      padding: 8px 15px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; font-weight: bold;
+      transition: 0.2s; text-decoration: none; display: inline-block;
     }
-    .btn-view:hover { background: var(--police-silver); color: #000; }
+    .btn-action:hover { background: var(--text-white); color: #000; border-color: white; }
 
-    .no-results { text-align: center; padding: 50px; color: var(--police-silver); font-style: italic; }
-    
-    .loading-spinner { color: var(--accent-blue); font-weight: bold; animation: pulse 1.5s infinite; }
-    @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
-
-    .back-link { color: var(--police-silver); text-decoration: none; font-size: 0.8rem; display: inline-block; margin-bottom: 15px; }
-    .back-link:hover { color: var(--police-red); }
+    .no-results { text-align: center; padding: 60px; color: var(--police-silver); font-style: italic; }
+    .back-nav { color: var(--police-silver); text-decoration: none; font-size: 0.85rem; margin-bottom: 20px; display: inline-block; transition: 0.2s; }
+    .back-nav:hover { color: var(--police-red); }
   </style>
 </head>
 <body>
 
 <div class="dashboard-container">
-  <a href="index.html" class="back-link">← Return to Portal</a>
+  <a href="index.html" class="back-nav">← Back to Portal</a>
   
   <header>
     <div>
-      <h1 style="margin:0; font-size: 1.6rem; letter-spacing: 1px;">SUPERVISOR RECORDS</h1>
-      <span style="font-size: 0.8rem; color: var(--police-red); font-weight: bold;">ROMA POLICE DEPARTMENT FLEET</span>
+      <h1 style="margin:0; font-size: 1.8rem;">INSPECTION DATABASE</h1>
+      <span style="color: var(--police-red); font-weight: bold;">ROMA POLICE DEPARTMENT | SUPERVISOR ACCESS</span>
     </div>
     <div class="logo-container">
-      <img src="logo.png" alt="Roma PD Shield">
+      <img src="logo.png" alt="Roma PD Logo">
     </div>
   </header>
 
   <section class="search-panel">
     <div>
-      <label>Unit Number</label>
-      <input type="text" id="filterUnit" placeholder="e.g. 108">
+      <label>Search by Unit #</label>
+      <input type="text" id="unitFilter" placeholder="e.g. 108">
     </div>
     <div>
-      <label>Officer Name</label>
-      <input type="text" id="filterOfficer" placeholder="Search by name...">
+      <label>Search by Officer</label>
+      <input type="text" id="officerFilter" placeholder="Officer name...">
     </div>
-    <button class="btn-search" onclick="triggerSearch()">Execute Search</button>
+    <button class="btn-search" onclick="runSearch()">🔍 Search Records</button>
   </section>
 
-  <div class="results-container">
-    <table id="resultsTable">
+  <div class="results-wrapper">
+    <table id="mainTable">
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Unit #</th>
-          <th>Officer</th>
+          <th>Inspection Date</th>
+          <th>Unit</th>
+          <th>Officer Name</th>
           <th>Odometer</th>
-          <th>Status</th>
+          <th>Condition</th>
           <th>Action</th>
         </tr>
       </thead>
-      <tbody id="tableBody">
+      <tbody id="resultsBody">
         <tr>
-          <td colspan="6" class="no-results">Use the filters above to query the SharePoint database.</td>
+          <td colspan="6" class="no-results">Please enter a Unit # or Officer Name to retrieve records.</td>
         </tr>
       </tbody>
     </table>
@@ -134,79 +133,72 @@
 </div>
 
 <script>
-  // IMPORTANTE: Pega aquí la URL del segundo Flow (el de búsqueda)
+  // URL del Flow de Búsqueda
   const SEARCH_FLOW_URL = "https://defaultc7482209c22b424696d4c965bb5a70.b0.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/5a0139d014a24e3b9ee11c0e60add979/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=-3FRtOlUWZ-o3sJ9JDG73PtzqgHOB4pcNPi2Ii-Qc_8";
 
-  async function triggerSearch() {
-    const tableBody = document.getElementById('tableBody');
-    const unitValue = document.getElementById('filterUnit').value;
-    const officerValue = document.getElementById('filterOfficer').value;
+  async function runSearch() {
+    const tableBody = document.getElementById('resultsBody');
+    const unit = document.getElementById('unitFilter').value;
+    const officer = document.getElementById('officerFilter').value;
 
-    // Mostrar estado de carga
-    tableBody.innerHTML = '<tr><td colspan="6" class="no-results loading-spinner">Accessing SharePoint Records...</td></tr>';
+    // Estado: Buscando
+    tableBody.innerHTML = '<tr><td colspan="6" class="no-results">⏳ Querying SharePoint Database...</td></tr>';
 
     try {
       const response = await fetch(SEARCH_FLOW_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          unit: unitValue, 
-          officer: officerValue 
-        })
+        body: JSON.stringify({ unit: unit, officer: officer })
       });
 
-      if (!response.ok) throw new Error('Flow Error');
+      if (!response.ok) throw new Error('Error en el servidor');
 
       const data = await response.json();
 
       if (!data || data.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="6" class="no-results">No records found for the specified criteria.</td></tr>';
+        tableBody.innerHTML = '<tr><td colspan="6" class="no-results">❌ No matching records found.</td></tr>';
         return;
       }
 
-      // Limpiar tabla
-      tableBody.innerHTML = '';
+      tableBody.innerHTML = ''; // Limpiar tabla
 
-      // Llenar tabla con datos reales
       data.forEach(item => {
         const row = document.createElement('tr');
         
-        // Formatear Fecha
-        const rawDate = item.InspectionDate || item.Created;
-        const formattedDate = new Date(rawDate).toLocaleDateString('en-US', {
-          year: 'numeric', month: 'short', day: 'numeric'
-        });
+        // Formatear la fecha para que sea legible
+        const dateObj = new Date(item.date || item.InspectionDate || item.Created);
+        const dateStr = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 
-        // Lógica de Daños (Booleano)
-        const hasDamage = item.DamageReported === true || item.DamageReported === "true";
-        const statusBadge = hasDamage 
-          ? '<span class="status-badge status-damage">Damage Reported</span>' 
-          : '<span class="status-badge status-ok">No Issues</span>';
+        // Lógica de Daños
+        const isDamaged = item.damage_reported === true || item.damage_reported === "true" || item.DamageReported === true;
+        const badge = isDamaged 
+          ? '<span class="badge badge-danger">Damage Found</span>' 
+          : '<span class="badge badge-success">Clean</span>';
 
         row.innerHTML = `
-          <td style="color: var(--police-silver);">${formattedDate}</td>
-          <td style="font-weight:bold; color:white;">${item.UnitNumber || item.Title}</td>
-          <td>${item.OfficerName || 'Unknown'}</td>
-          <td>${item.Odometer || '--'} mi</td>
-          <td>${statusBadge}</td>
+          <td>${dateStr}</td>
+          <td style="font-weight:bold; color:white;">${item.unit || item.UnitNumber || item.Title}</td>
+          <td>${item.officer || item.OfficerName}</td>
+          <td>${item.odometer || '0'} mi</td>
+          <td>${badge}</td>
           <td>
-            <button class="btn-view" onclick="openRecord('${item.ID}')">Details</button>
+            <button class="btn-action" onclick="printReport('${item.ID}')">🖨️ View/Print</button>
           </td>
         `;
         tableBody.appendChild(row);
       });
 
     } catch (error) {
-      console.error("Search Error:", error);
-      tableBody.innerHTML = '<tr><td colspan="6" class="no-results" style="color:var(--accent-red);">❌ Connection Failed. Check if the Search Flow is active.</td></tr>';
+      console.error(error);
+      tableBody.innerHTML = '<tr><td colspan="6" class="no-results" style="color:var(--police-red);">⚠️ Failed to connect to SharePoint. Verify Flow URL.</td></tr>';
     }
   }
 
-  function openRecord(id) {
-    // Esto abre el elemento directamente en SharePoint para que el supervisor vea todo
-    // Reemplaza 'TU_SITIO' y 'TU_LISTA' con tus nombres reales
-    const sharePointUrl = `https://cityofromatx.sharepoint.com/sites/TU_SITIO/Lists/CityOfRoma/DispForm.aspx?ID=${id}`;
-    window.open(sharePointUrl, '_blank');
+  function printReport(id) {
+    // Esto abre el registro en SharePoint para imprimirlo
+    // Reemplaza con tus datos reales de dominio/sitio/lista
+    const spUrl = `https://TU_DOMINIO.sharepoint.com/sites/TU_SITIO/Lists/TU_LISTA/DispForm.aspx?ID=${id}`;
+    window.open(spUrl, '_blank');
   }
 </script>
 
