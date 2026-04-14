@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Supervisor Panel | Roma PD</title>
+  <title>Supervisor Dashboard | Roma PD</title>
   <style>
     :root {
       --police-black: #0a0e14;
@@ -20,7 +20,6 @@
       background-color: var(--police-black); 
       color: var(--text-white); 
       margin: 0; padding: 20px;
-      line-height: 1.6;
     }
 
     .dashboard-container { 
@@ -37,95 +36,92 @@
       margin-bottom: 25px; padding-bottom: 20px;
     }
 
-    .logo-container img { height: 70px; }
-
     .search-panel { 
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
       gap: 20px; background: rgba(0,0,0,0.4); padding: 25px; border-radius: 6px;
-      margin-bottom: 30px; border: 1px solid rgba(189,195,199,0.1);
+      margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1);
     }
 
-    label { display: block; font-size: 0.75rem; font-weight: bold; color: var(--police-silver); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+    label { display: block; font-size: 0.75rem; font-weight: bold; color: var(--police-silver); margin-bottom: 8px; text-transform: uppercase; }
     
-    input { 
+    select { 
       width: 100%; padding: 12px; background: #000; border: 1px solid #34495e; 
-      color: #fff; border-radius: 4px; box-sizing: border-box; font-size: 1rem;
+      color: #fff; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem;
+      cursor: pointer;
     }
-    input:focus { border-color: var(--police-red); outline: none; }
+    select:focus { border-color: var(--police-red); outline: none; }
 
     .btn-search { 
       background: var(--accent-blue); color: white; border: none; padding: 12px; 
       font-weight: bold; cursor: pointer; border-radius: 4px; align-self: end;
-      text-transform: uppercase; transition: all 0.3s ease; height: 48px;
+      text-transform: uppercase; transition: 0.3s; height: 48px;
     }
     .btn-search:hover { background: #3498db; transform: translateY(-2px); }
 
-    /* Tabla de Resultados */
-    .results-wrapper { overflow-x: auto; border-radius: 4px; background: rgba(0,0,0,0.2); }
-    table { width: 100%; border-collapse: collapse; min-width: 800px; }
-    th { background: #000; color: var(--police-red); text-align: left; padding: 15px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid var(--police-red); }
+    .results-wrapper { overflow-x: auto; background: rgba(0,0,0,0.2); border-radius: 4px; }
+    table { width: 100%; border-collapse: collapse; min-width: 900px; }
+    th { background: #000; color: var(--police-red); text-align: left; padding: 15px; font-size: 0.8rem; text-transform: uppercase; border-bottom: 2px solid var(--police-red); }
     td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; }
-    tr:hover { background: rgba(255,255,255,0.05); }
-
-    /* Etiquetas de Estado */
-    .badge { padding: 5px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; display: inline-block; }
+    
+    .badge { padding: 5px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
     .badge-danger { background: #7b1f1f; color: #ffbcbc; border: 1px solid #ff1744; }
     .badge-success { background: #1b4d2e; color: #bcffcc; border: 1px solid var(--success-green); }
 
-    .btn-action { 
-      background: transparent; border: 1px solid var(--police-silver); color: var(--police-silver);
-      padding: 8px 15px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; font-weight: bold;
-      transition: 0.2s; text-decoration: none; display: inline-block;
+    .btn-print { 
+      background: var(--text-white); color: #000; border: none;
+      padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; font-weight: bold;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
     }
-    .btn-action:hover { background: var(--text-white); color: #000; border-color: white; }
+    .btn-print:hover { background: var(--police-silver); }
 
     .no-results { text-align: center; padding: 60px; color: var(--police-silver); font-style: italic; }
-    .back-nav { color: var(--police-silver); text-decoration: none; font-size: 0.85rem; margin-bottom: 20px; display: inline-block; transition: 0.2s; }
-    .back-nav:hover { color: var(--police-red); }
+    .back-nav { color: var(--police-silver); text-decoration: none; font-size: 0.85rem; margin-bottom: 20px; display: inline-block; }
   </style>
 </head>
 <body>
 
 <div class="dashboard-container">
-  <a href="index.html" class="back-nav">← Back to Portal</a>
+  <a href="index.html" class="back-nav">← Back to Main Portal</a>
   
   <header>
     <div>
-      <h1 style="margin:0; font-size: 1.8rem;">INSPECTION DATABASE</h1>
-      <span style="color: var(--police-red); font-weight: bold;">ROMA POLICE DEPARTMENT | SUPERVISOR ACCESS</span>
+      <h1 style="margin:0; font-size: 1.8rem;">FLEET INSPECTION SEARCH</h1>
+      <span style="color: var(--police-red); font-weight: bold;">ROMA POLICE DEPARTMENT | ADMINISTRATIVE ACCESS</span>
     </div>
-    <div class="logo-container">
-      <img src="logo.png" alt="Roma PD Logo">
-    </div>
+    <img src="logo.png" alt="Logo" style="height: 60px;">
   </header>
 
   <section class="search-panel">
     <div>
-      <label>Search by Unit #</label>
-      <input type="text" id="unitFilter" placeholder="e.g. 108">
+      <label>Vehicle / Unit</label>
+      <select id="unitSelect">
+        <option value="">-- Select Unit --</option>
+      </select>
     </div>
     <div>
-      <label>Search by Officer</label>
-      <input type="text" id="officerFilter" placeholder="Officer name...">
+      <label>Officer / ID</label>
+      <select id="officerSelect">
+        <option value="">-- Select Officer --</option>
+      </select>
     </div>
-    <button class="btn-search" onclick="runSearch()">🔍 Search Records</button>
+    <button class="btn-search" onclick="executeSearch()">🔍 Search Records</button>
   </section>
 
   <div class="results-wrapper">
-    <table id="mainTable">
+    <table>
       <thead>
         <tr>
-          <th>Inspection Date</th>
-          <th>Unit</th>
-          <th>Officer Name</th>
+          <th>Date</th>
+          <th>Unit Info</th>
+          <th>Officer Info</th>
           <th>Odometer</th>
-          <th>Condition</th>
-          <th>Action</th>
+          <th>Status</th>
+          <th>Report</th>
         </tr>
       </thead>
-      <tbody id="resultsBody">
+      <tbody id="resultsTableBody">
         <tr>
-          <td colspan="6" class="no-results">Please enter a Unit # or Officer Name to retrieve records.</td>
+          <td colspan="6" class="no-results">Use dropdowns to filter by vehicle or officer.</td>
         </tr>
       </tbody>
     </table>
@@ -133,16 +129,54 @@
 </div>
 
 <script>
-  // URL del Flow de Búsqueda
+  // CONFIGURACIÓN: Reemplaza con tu URL del Flow de Búsqueda
   const SEARCH_FLOW_URL = "https://defaultc7482209c22b424696d4c965bb5a70.b0.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/5a0139d014a24e3b9ee11c0e60add979/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=-3FRtOlUWZ-o3sJ9JDG73PtzqgHOB4pcNPi2Ii-Qc_8";
 
-  async function runSearch() {
-    const tableBody = document.getElementById('resultsBody');
-    const unit = document.getElementById('unitFilter').value;
-    const officer = document.getElementById('officerFilter').value;
+  // LISTAS MAESTRAS CON FORMATO COMPLETO
+  // Estas deben coincidir EXACTAMENTE con las que usas en el Formulario de Inspección
+  const unitList = [
+    { id: "101", name: "Ford Explorer" },
+    { id: "102", name: "Chevy Tahoe" },
+    { id: "103", name: "Dodge Charger" },
+    { id: "108", name: "Ford F-150" },
+    { id: "K9-1", name: "Chevy Tahoe (K9 Unit)" }
+  ];
 
-    // Estado: Buscando
-    tableBody.innerHTML = '<tr><td colspan="6" class="no-results">⏳ Querying SharePoint Database...</td></tr>';
+  const officerList = [
+    { badge: "501", name: "John Smith" },
+    { badge: "502", name: "Maria Garcia" },
+    { badge: "558", name: "Robert Wilson" },
+    { badge: "610", name: "James Anderson" }
+  ];
+
+  // Llenar Dropdowns al iniciar
+  window.onload = () => {
+    const unitSelect = document.getElementById('unitSelect');
+    const officerSelect = document.getElementById('officerSelect');
+
+    unitList.forEach(u => {
+      let opt = document.createElement('option');
+      // El valor que se envía a la búsqueda es solo el ID para precisión
+      opt.value = u.id; 
+      opt.innerHTML = `${u.id} - ${u.name}`;
+      unitSelect.appendChild(opt);
+    });
+
+    officerList.forEach(o => {
+      let opt = document.createElement('option');
+      // Buscaremos por el nombre o el badge según como guardes en SharePoint
+      opt.value = o.name; 
+      opt.innerHTML = `ID #${o.badge} | ${o.name}`;
+      officerSelect.appendChild(opt);
+    });
+  };
+
+  async function executeSearch() {
+    const tableBody = document.getElementById('resultsTableBody');
+    const unit = document.getElementById('unitSelect').value;
+    const officer = document.getElementById('officerSelect').value;
+
+    tableBody.innerHTML = '<tr><td colspan="6" class="no-results">⏳ Fetching encrypted records...</td></tr>';
 
     try {
       const response = await fetch(SEARCH_FLOW_URL, {
@@ -151,38 +185,43 @@
         body: JSON.stringify({ unit: unit, officer: officer })
       });
 
-      if (!response.ok) throw new Error('Error en el servidor');
-
       const data = await response.json();
 
       if (!data || data.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="6" class="no-results">❌ No matching records found.</td></tr>';
+        tableBody.innerHTML = '<tr><td colspan="6" class="no-results">❌ No matching logs found in database.</td></tr>';
         return;
       }
 
-      tableBody.innerHTML = ''; // Limpiar tabla
+      tableBody.innerHTML = ''; 
 
       data.forEach(item => {
         const row = document.createElement('tr');
-        
-        // Formatear la fecha para que sea legible
-        const dateObj = new Date(item.date || item.InspectionDate || item.Created);
-        const dateStr = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        const rawDate = item.InspectionDate || item.Created;
+        const dateStr = new Date(rawDate).toLocaleDateString('en-US', { 
+          year: 'numeric', month: 'short', day: 'numeric' 
+        });
 
-        // Lógica de Daños
-        const isDamaged = item.damage_reported === true || item.damage_reported === "true" || item.DamageReported === true;
-        const badge = isDamaged 
-          ? '<span class="badge badge-danger">Damage Found</span>' 
-          : '<span class="badge badge-success">Clean</span>';
+        let pdfUrl = "#";
+        if (item.PdfLink) {
+          pdfUrl = (typeof item.PdfLink === 'object') ? item.PdfLink.Url : item.PdfLink;
+        }
+
+        const hasDamage = item.DamageReported === true || item.DamageReported === "true";
 
         row.innerHTML = `
           <td>${dateStr}</td>
-          <td style="font-weight:bold; color:white;">${item.unit || item.UnitNumber || item.Title}</td>
-          <td>${item.officer || item.OfficerName}</td>
-          <td>${item.odometer || '0'} mi</td>
-          <td>${badge}</td>
+          <td style="font-weight:bold; color:white;">${item.UnitNumber || item.Title || 'N/A'}</td>
+          <td>${item.OfficerName || 'N/A'}</td>
+          <td>${item.Odometer || '0'} mi</td>
           <td>
-            <button class="btn-action" onclick="printReport('${item.ID}')">🖨️ View/Print</button>
+            <span class="badge ${hasDamage ? 'badge-danger' : 'badge-success'}">
+              ${hasDamage ? 'DAMAGED' : 'OPERATIONAL'}
+            </span>
+          </td>
+          <td>
+            ${pdfUrl !== "#" 
+              ? `<a href="${pdfUrl}" target="_blank" class="btn-print">📄 GET PDF</a>` 
+              : `<span style="color:#555; font-size:0.8rem;">Processing...</span>`}
           </td>
         `;
         tableBody.appendChild(row);
@@ -190,15 +229,8 @@
 
     } catch (error) {
       console.error(error);
-      tableBody.innerHTML = '<tr><td colspan="6" class="no-results" style="color:var(--police-red);">⚠️ Failed to connect to SharePoint. Verify Flow URL.</td></tr>';
+      tableBody.innerHTML = '<tr><td colspan="6" class="no-results" style="color:var(--police-red);">⚠️ Error connecting to PD Cloud.</td></tr>';
     }
-  }
-
-  function printReport(id) {
-    // Esto abre el registro en SharePoint para imprimirlo
-    // Reemplaza con tus datos reales de dominio/sitio/lista
-    const spUrl = `https://TU_DOMINIO.sharepoint.com/sites/TU_SITIO/Lists/TU_LISTA/DispForm.aspx?ID=${id}`;
-    window.open(spUrl, '_blank');
   }
 </script>
 
