@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supervisor Dashboard | Roma PD</title>
+  <style>
+    :root {
+      --police-black: #0a0e14;
+      --police-navy: #1b2631;
+      --police-red: #c62828;
+      --police-silver: #bdc3c7;
+      --text-white: #ecf0f1;
+      --accent-blue: #2980b9;
+    }
+
+    body { 
+      font-family: 'Segoe UI', Arial, sans-serif; 
+      background-color: var(--police-black); 
+      color: var(--text-white); 
+      margin: 0; padding: 20px;
+    }
+
+    .dashboard-container { 
+      max-width: 1100px; margin: 0 auto; 
+      background: var(--police-navy); 
+      padding: 25px; border-radius: 8px; 
+      border-top: 5px solid var(--police-red);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    header { 
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid rgba(189,195,199,0.2);
+      margin-bottom: 25px; padding-bottom: 15px;
+    }
+
+    .search-panel { 
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+      gap: 15px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 6px;
+      margin-bottom: 30px;
+    }
+
+    label { display: block; font-size: 0.75rem; font-weight: bold; color: var(--police-silver); margin-bottom: 5px; text-transform: uppercase; }
+    
+    input, select { 
+      width: 100%; padding: 10px; background: #000; border: 1px solid #34495e; 
+      color: #fff; border-radius: 4px; box-sizing: border-box;
+    }
+
+    .btn-search { 
+      background: var(--accent-blue); color: white; border: none; padding: 10px; 
+      font-weight: bold; cursor: pointer; border-radius: 4px; align-self: end;
+      text-transform: uppercase; transition: 0.3s;
+    }
+    .btn-search:hover { background: #3498db; }
+
+    /* Estilo de la Tabla de Resultados */
+    .results-container { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; background: rgba(255,255,255,0.02); }
+    th { background: #000; color: var(--police-red); text-align: left; padding: 12px; font-size: 0.85rem; text-transform: uppercase; border-bottom: 2px solid var(--police-red); }
+    td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
+    tr:hover { background: rgba(255,255,255,0.05); }
+
+    .status-badge { padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; }
+    .status-damage { background: #7b1f1f; color: #ffbcbc; }
+    .status-ok { background: #1b4d2e; color: #bcffcc; }
+
+    .btn-print { 
+      background: transparent; border: 1px solid var(--police-silver); color: var(--police-silver);
+      padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
+    }
+    .btn-print:hover { background: var(--police-silver); color: #000; }
+
+    .no-results { text-align: center; padding: 40px; color: var(--police-silver); font-style: italic; }
+  </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+  <header>
+    <div>
+      <h1 style="margin:0; font-size: 1.5rem;">Supervisor Records Panel</h1>
+      <span style="font-size: 0.8rem; color: var(--police-red);">ROMA POLICE DEPARTMENT | FLEET MANAGEMENT</span>
+    </div>
+    <img src="logo.png" alt="PD Logo" style="height: 50px;">
+  </header>
+
+  <section class="search-panel">
+    <div>
+      <label>Search by Unit #</label>
+      <input type="text" id="filterUnit" placeholder="e.g. 108">
+    </div>
+    <div>
+      <label>Filter by Officer</label>
+      <input type="text" id="filterOfficer" placeholder="Officer name or ID">
+    </div>
+    <div>
+      <label>Date From</label>
+      <input type="date" id="filterDate">
+    </div>
+    <button class="btn-search" onclick="triggerSearch()">Search Database</button>
+  </section>
+
+  <div class="results-container">
+    <table id="resultsTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Unit</th>
+          <th>Officer</th>
+          <th>Odometer</th>
+          <th>Damage?</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <tr>
+          <td colspan="6" class="no-results">Enter filters and click search to retrieve records.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  // Esta función simula la búsqueda por ahora. 
+  // En el siguiente paso la conectaremos a un nuevo Flow de Power Automate.
+  async function triggerSearch() {
+    const tableBody = document.getElementById('tableBody');
+    tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px;">Searching SharePoint...</td></tr>';
+
+    const filters = {
+      unit: document.getElementById('filterUnit').value,
+      officer: document.getElementById('filterOfficer').value,
+      date: document.getElementById('filterDate').value
+    };
+
+    console.log("Iniciando búsqueda con filtros:", filters);
+    
+    // Aquí es donde haremos el fetch al nuevo Flow de búsqueda
+    // fetch(SEARCH_FLOW_URL, ...)
+  }
+</script>
+
+</body>
+</html>
