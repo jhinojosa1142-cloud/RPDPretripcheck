@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Supervisor Dashboard | Roma PD</title>
+  <title>Supervisor Panel | Roma PD</title>
   <style>
     :root {
       --police-black: #0a0e14;
@@ -12,6 +12,7 @@
       --police-silver: #bdc3c7;
       --text-white: #ecf0f1;
       --accent-blue: #2980b9;
+      --success-green: #2ecc71;
     }
 
     body { 
@@ -35,71 +36,80 @@
       margin-bottom: 25px; padding-bottom: 15px;
     }
 
+    .logo-container img { height: 60px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
+
     .search-panel { 
       display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
       gap: 15px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 6px;
-      margin-bottom: 30px;
+      margin-bottom: 30px; border-left: 3px solid var(--police-red);
     }
 
     label { display: block; font-size: 0.75rem; font-weight: bold; color: var(--police-silver); margin-bottom: 5px; text-transform: uppercase; }
     
-    input, select { 
-      width: 100%; padding: 10px; background: #000; border: 1px solid #34495e; 
-      color: #fff; border-radius: 4px; box-sizing: border-box;
+    input { 
+      width: 100%; padding: 12px; background: #000; border: 1px solid #34495e; 
+      color: #fff; border-radius: 4px; box-sizing: border-box; font-size: 0.9rem;
     }
 
     .btn-search { 
-      background: var(--accent-blue); color: white; border: none; padding: 10px; 
+      background: var(--accent-blue); color: white; border: none; padding: 12px; 
       font-weight: bold; cursor: pointer; border-radius: 4px; align-self: end;
-      text-transform: uppercase; transition: 0.3s;
+      text-transform: uppercase; transition: all 0.3s ease;
     }
-    .btn-search:hover { background: #3498db; }
+    .btn-search:hover { background: #3498db; transform: translateY(-2px); }
+    .btn-search:active { transform: translateY(0); }
 
-    /* Estilo de la Tabla de Resultados */
-    .results-container { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; background: rgba(255,255,255,0.02); }
-    th { background: #000; color: var(--police-red); text-align: left; padding: 12px; font-size: 0.85rem; text-transform: uppercase; border-bottom: 2px solid var(--police-red); }
-    td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
-    tr:hover { background: rgba(255,255,255,0.05); }
+    /* Resultados */
+    .results-container { overflow-x: auto; background: rgba(0,0,0,0.2); border-radius: 4px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 0; }
+    th { background: #000; color: var(--police-red); text-align: left; padding: 15px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+    td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
+    tr:hover { background: rgba(255,255,255,0.08); }
 
-    .status-badge { padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; }
-    .status-damage { background: #7b1f1f; color: #ffbcbc; }
-    .status-ok { background: #1b4d2e; color: #bcffcc; }
+    .status-badge { padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+    .status-damage { background: #7b1f1f; color: #ffbcbc; border: 1px solid #ff1744; }
+    .status-ok { background: #1b4d2e; color: #bcffcc; border: 1px solid var(--success-green); }
 
-    .btn-print { 
+    .btn-view { 
       background: transparent; border: 1px solid var(--police-silver); color: var(--police-silver);
-      padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
+      padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; transition: 0.2s;
     }
-    .btn-print:hover { background: var(--police-silver); color: #000; }
+    .btn-view:hover { background: var(--police-silver); color: #000; }
 
-    .no-results { text-align: center; padding: 40px; color: var(--police-silver); font-style: italic; }
+    .no-results { text-align: center; padding: 50px; color: var(--police-silver); font-style: italic; }
+    
+    .loading-spinner { color: var(--accent-blue); font-weight: bold; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+    .back-link { color: var(--police-silver); text-decoration: none; font-size: 0.8rem; display: inline-block; margin-bottom: 15px; }
+    .back-link:hover { color: var(--police-red); }
   </style>
 </head>
 <body>
 
 <div class="dashboard-container">
+  <a href="index.html" class="back-link">← Return to Portal</a>
+  
   <header>
     <div>
-      <h1 style="margin:0; font-size: 1.5rem;">Supervisor Records Panel</h1>
-      <span style="font-size: 0.8rem; color: var(--police-red);">ROMA POLICE DEPARTMENT | FLEET MANAGEMENT</span>
+      <h1 style="margin:0; font-size: 1.6rem; letter-spacing: 1px;">SUPERVISOR RECORDS</h1>
+      <span style="font-size: 0.8rem; color: var(--police-red); font-weight: bold;">ROMA POLICE DEPARTMENT FLEET</span>
     </div>
-    <img src="logo.png" alt="PD Logo" style="height: 50px;">
+    <div class="logo-container">
+      <img src="logo.png" alt="Roma PD Shield">
+    </div>
   </header>
 
   <section class="search-panel">
     <div>
-      <label>Search by Unit #</label>
+      <label>Unit Number</label>
       <input type="text" id="filterUnit" placeholder="e.g. 108">
     </div>
     <div>
-      <label>Filter by Officer</label>
-      <input type="text" id="filterOfficer" placeholder="Officer name or ID">
+      <label>Officer Name</label>
+      <input type="text" id="filterOfficer" placeholder="Search by name...">
     </div>
-    <div>
-      <label>Date From</label>
-      <input type="date" id="filterDate">
-    </div>
-    <button class="btn-search" onclick="triggerSearch()">Search Database</button>
+    <button class="btn-search" onclick="triggerSearch()">Execute Search</button>
   </section>
 
   <div class="results-container">
@@ -107,16 +117,16 @@
       <thead>
         <tr>
           <th>Date</th>
-          <th>Unit</th>
+          <th>Unit #</th>
           <th>Officer</th>
           <th>Odometer</th>
-          <th>Damage?</th>
+          <th>Status</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody id="tableBody">
         <tr>
-          <td colspan="6" class="no-results">Enter filters and click search to retrieve records.</td>
+          <td colspan="6" class="no-results">Use the filters above to query the SharePoint database.</td>
         </tr>
       </tbody>
     </table>
@@ -124,22 +134,79 @@
 </div>
 
 <script>
-  // Esta función simula la búsqueda por ahora. 
-  // En el siguiente paso la conectaremos a un nuevo Flow de Power Automate.
+  // IMPORTANTE: Pega aquí la URL del segundo Flow (el de búsqueda)
+  const SEARCH_FLOW_URL = "https://defaultc7482209c22b424696d4c965bb5a70.b0.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/5a0139d014a24e3b9ee11c0e60add979/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=-3FRtOlUWZ-o3sJ9JDG73PtzqgHOB4pcNPi2Ii-Qc_8";
+
   async function triggerSearch() {
     const tableBody = document.getElementById('tableBody');
-    tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px;">Searching SharePoint...</td></tr>';
+    const unitValue = document.getElementById('filterUnit').value;
+    const officerValue = document.getElementById('filterOfficer').value;
 
-    const filters = {
-      unit: document.getElementById('filterUnit').value,
-      officer: document.getElementById('filterOfficer').value,
-      date: document.getElementById('filterDate').value
-    };
+    // Mostrar estado de carga
+    tableBody.innerHTML = '<tr><td colspan="6" class="no-results loading-spinner">Accessing SharePoint Records...</td></tr>';
 
-    console.log("Iniciando búsqueda con filtros:", filters);
-    
-    // Aquí es donde haremos el fetch al nuevo Flow de búsqueda
-    // fetch(SEARCH_FLOW_URL, ...)
+    try {
+      const response = await fetch(SEARCH_FLOW_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          unit: unitValue, 
+          officer: officerValue 
+        })
+      });
+
+      if (!response.ok) throw new Error('Flow Error');
+
+      const data = await response.json();
+
+      if (!data || data.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="6" class="no-results">No records found for the specified criteria.</td></tr>';
+        return;
+      }
+
+      // Limpiar tabla
+      tableBody.innerHTML = '';
+
+      // Llenar tabla con datos reales
+      data.forEach(item => {
+        const row = document.createElement('tr');
+        
+        // Formatear Fecha
+        const rawDate = item.InspectionDate || item.Created;
+        const formattedDate = new Date(rawDate).toLocaleDateString('en-US', {
+          year: 'numeric', month: 'short', day: 'numeric'
+        });
+
+        // Lógica de Daños (Booleano)
+        const hasDamage = item.DamageReported === true || item.DamageReported === "true";
+        const statusBadge = hasDamage 
+          ? '<span class="status-badge status-damage">Damage Reported</span>' 
+          : '<span class="status-badge status-ok">No Issues</span>';
+
+        row.innerHTML = `
+          <td style="color: var(--police-silver);">${formattedDate}</td>
+          <td style="font-weight:bold; color:white;">${item.UnitNumber || item.Title}</td>
+          <td>${item.OfficerName || 'Unknown'}</td>
+          <td>${item.Odometer || '--'} mi</td>
+          <td>${statusBadge}</td>
+          <td>
+            <button class="btn-view" onclick="openRecord('${item.ID}')">Details</button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+
+    } catch (error) {
+      console.error("Search Error:", error);
+      tableBody.innerHTML = '<tr><td colspan="6" class="no-results" style="color:var(--accent-red);">❌ Connection Failed. Check if the Search Flow is active.</td></tr>';
+    }
+  }
+
+  function openRecord(id) {
+    // Esto abre el elemento directamente en SharePoint para que el supervisor vea todo
+    // Reemplaza 'TU_SITIO' y 'TU_LISTA' con tus nombres reales
+    const sharePointUrl = `https://TU_DOMINIO.sharepoint.com/sites/TU_SITIO/Lists/TU_LISTA/DispForm.aspx?ID=${id}`;
+    window.open(sharePointUrl, '_blank');
   }
 </script>
 
