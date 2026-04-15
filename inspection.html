@@ -3,133 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roma PD | Vehicle Inspection</title>
+  <title>Vehicle Inspection | Roma PD</title>
   <style>
     :root {
       --police-navy: #1b2631;
       --police-red: #c62828;
       --police-gold: #d4af37;
-      --text-light: #ecf0f1;
+      --police-black: #0a0e14;
+      --text-white: #ecf0f1;
     }
 
     body { 
-      font-family: 'Segoe UI', Arial, sans-serif; 
-      background-color: #0a0e14; 
-      color: var(--text-light); 
+      font-family: 'Segoe UI', Helvetica, Arial, sans-serif; 
+      background-color: var(--police-black); 
+      color: var(--text-white); 
       margin: 0; padding: 20px;
+      display: flex; justify-content: center;
     }
 
-    .form-container { 
-      max-width: 600px; margin: 0 auto; 
+    .form-card { 
+      width: 100%; max-width: 650px; 
       background: var(--police-navy); 
-      padding: 30px; border-radius: 8px; 
-      border-left: 5px solid var(--police-red);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 40px; border-radius: 12px; 
+      border-top: 6px solid var(--police-red);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
     }
 
-    header { text-align: center; margin-bottom: 30px; }
-    h2 { color: var(--police-red); text-transform: uppercase; letter-spacing: 2px; margin: 10px 0; }
+    header { text-align: center; margin-bottom: 35px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+    header img { height: 90px; margin-bottom: 15px; }
+    header h1 { margin: 0; font-size: 1.6rem; letter-spacing: 2px; color: var(--text-white); }
+    header p { margin: 5px 0 0; color: var(--police-red); font-weight: bold; font-size: 0.9rem; }
 
-    .form-group { margin-bottom: 20px; }
-    label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 0.9rem; color: var(--police-gold); }
+    .form-group { margin-bottom: 25px; }
+    label { display: block; margin-bottom: 10px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; color: var(--police-gold); letter-spacing: 1px; }
     
-    /* Estilo para los nuevos Dropdowns */
     select, input, textarea { 
-      width: 100%; padding: 12px; 
-      background: #000; border: 1px solid #34495e; 
-      color: #fff; border-radius: 4px; box-sizing: border-box; 
-      font-size: 1rem;
+      width: 100%; padding: 14px; 
+      background: rgba(0,0,0,0.5); border: 1px solid #34495e; 
+      color: #fff; border-radius: 6px; box-sizing: border-box; 
+      font-size: 1rem; transition: all 0.3s;
     }
 
-    select:focus { border-color: var(--police-red); outline: none; }
+    select:focus, input:focus, textarea:focus { 
+      border-color: var(--police-red); outline: none; 
+      box-shadow: 0 0 8px rgba(198, 40, 40, 0.4);
+    }
+
+    .checkbox-container { 
+      display: flex; align-items: center; 
+      background: rgba(0,0,0,0.3); padding: 15px; border-radius: 6px; 
+      border: 1px dashed #34495e; cursor: pointer;
+    }
+    .checkbox-container input { width: auto; margin-right: 15px; transform: scale(1.3); }
 
     .btn-submit { 
       width: 100%; background: var(--police-red); color: white; 
-      border: none; padding: 15px; font-weight: bold; 
-      cursor: pointer; border-radius: 4px; text-transform: uppercase;
+      border: none; padding: 18px; font-size: 1.1rem; font-weight: bold; 
+      cursor: pointer; border-radius: 6px; text-transform: uppercase;
       transition: 0.3s; margin-top: 10px;
     }
-    .btn-submit:hover { background: #a51d1d; }
+    .btn-submit:hover { background: #e53935; transform: translateY(-2px); }
 
-    .checkbox-group { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 4px; }
-    .checkbox-group input { width: auto; }
+    footer { text-align: center; margin-top: 25px; font-size: 0.75rem; color: #5d6d7e; }
   </style>
 </head>
 <body>
 
-<div class="form-container">
+<div class="form-card">
   <header>
-    <img src="logo.png" alt="Roma PD Logo" style="height: 80px;">
-    <h2>Daily Vehicle Inspection</h2>
-    <p style="font-size: 0.8rem; color: #bdc3c7;">Official Patrol Record - Roma, Texas</p>
+    <img src="logo.png" alt="Roma PD Shield">
+    <h1>VEHICLE INSPECTION</h1>
+    <p>ROMA POLICE DEPARTMENT</p>
   </header>
 
   <form id="inspectionForm">
     <div class="form-group">
-      <label>Officer Name & Badge ID</label>
+      <label>Officer Name & Badge</label>
       <select id="officer" required>
-        <option value="">-- Select Your Name --</option>
+        <option value="">-- Select Officer --</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label>Patrol Unit #</label>
+      <label>Patrol Unit / Vehicle</label>
       <select id="unit" required>
-        <option value="">-- Select Unit Number --</option>
+        <option value="">-- Select Unit --</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label>Current Odometer (Miles)</label>
-      <input type="number" id="odometer" placeholder="Enter mileage" required>
-    </div>
-
-    <div class="form-group checkbox-group">
-      <input type="checkbox" id="damage_reported">
-      <label style="margin:0;">Report New Damage or Mechanical Issues?</label>
+      <label>Odometer Reading (Mileage)</label>
+      <input type="number" id="odometer" placeholder="Enter miles" required>
     </div>
 
     <div class="form-group">
-      <label>Notes / Comments</label>
-      <textarea id="notes" rows="3" placeholder="Specify any issues found..."></textarea>
+      <label class="checkbox-container">
+        <input type="checkbox" id="damage_reported">
+        <span>Report Damage / Mechanical Issues?</span>
+      </label>
     </div>
 
-    <button type="submit" class="btn-submit" id="submitBtn">Submit Inspection</button>
+    <div class="form-group">
+      <label>Additional Notes</label>
+      <textarea id="notes" rows="4" placeholder="Describe any issues..."></textarea>
+    </div>
+
+    <button type="submit" class="btn-submit" id="submitBtn">Submit Report</button>
   </form>
+
+  <footer>CITY OF ROMA, TEXAS | OFFICIAL LOG</footer>
 </div>
 
 <script>
-  // URL de tu primer Flow (Inspección)
   const FLOW_URL = "https://defaultc7482209c22b424696d4c965bb5a70.b0.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/a32eaff0a7bb4c1bbf730df99b5f3525/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=i3nXR2iPrDMLenk3RsZCZfMr4FVBZgH00dxCpDxAZ04";
 
-  // DATOS OFICIALES PROPORCIONADOS
-  const units = [
-    { id: "100", info: "2012 Dodge Challenger" },
-    { id: "101", info: "2017 Ford Explorer" },
-    { id: "102", info: "2016 Ford Explorer" },
-    { id: "104", info: "2024 Ford Explorer" },
-    { id: "105", info: "2022 Dodge Charger" },
-    { id: "106", info: "2021 Dodge Charger" },
-    { id: "107", info: "2021 Dodge Charger" },
-    { id: "108", info: "2024 Chevrolet Tahoe" },
-    { id: "109", info: "2024 Chevrolet Tahoe" },
-    { id: "110", info: "2018 Chevrolet Tahoe" },
-    { id: "111", info: "2009 Ford F-250" },
-    { id: "112", info: "2023 Dodge Durango" },
-    { id: "113", info: "2018 Chevrolet Tahoe" },
-    { id: "114", info: "2017 Ford Fusion" },
-    { id: "116", info: "2016 Chevrolet Tahoe" },
-    { id: "117", info: "2016 Chevrolet Tahoe" },
-    { id: "118", info: "2019 Ford F-150" },
-    { id: "119", info: "2019 Ford F-150" },
-    { id: "120", info: "2021 Ford F-150" },
-    { id: "121", info: "2021 Ford F-150" },
-    { id: "122", info: "2024 Dodge Durango" },
-    { id: "123", info: "2024 Chevrolet Tahoe" },
-    { id: "124", info: "2024 Dodge Durango" }
+  // LISTA COMPLETA DE UNIDADES (23 UNIDADES)
+  const unitList = [
+    { id: "100", name: "2012 Dodge Challenger" },
+    { id: "101", name: "2017 Ford Explorer" },
+    { id: "102", name: "2016 Ford Explorer" },
+    { id: "104", name: "2024 Ford Explorer" },
+    { id: "105", name: "2022 Dodge Charger" },
+    { id: "106", name: "2021 Dodge Charger" },
+    { id: "107", name: "2021 Dodge Charger" },
+    { id: "108", name: "2024 Chevrolet Tahoe" },
+    { id: "109", name: "2024 Chevrolet Tahoe" },
+    { id: "110", name: "2018 Chevrolet Tahoe" },
+    { id: "111", name: "2009 Ford F-250" },
+    { id: "112", name: "2023 Dodge Durango" },
+    { id: "113", name: "2018 Chevrolet Tahoe" },
+    { id: "114", name: "2017 Ford Fusion" },
+    { id: "116", name: "2016 Chevrolet Tahoe" },
+    { id: "117", name: "2016 Chevrolet Tahoe" },
+    { id: "118", name: "2019 Ford F-150" },
+    { id: "119", name: "2019 Ford F-150" },
+    { id: "120", name: "2021 Ford F-150" },
+    { id: "121", name: "2021 Ford F-150" },
+    { id: "122", name: "2024 Dodge Durango" },
+    { id: "123", name: "2024 Chevrolet Tahoe" },
+    { id: "124", name: "2024 Dodge Durango" }
   ];
 
-  const officers = [
+  // LISTA COMPLETA DE OFICIALES (26 OFICIALES)
+  const officerList = [
     { badge: "921", name: "Chief Iv Garza Jr." },
     { badge: "924", name: "Asst. Chief Francisco Garcia" },
     { badge: "928", name: "Sgt. Mario Madrigal" },
@@ -158,22 +174,21 @@
     { badge: "2206", name: "Francisco Xavier Treviño" }
   ];
 
-  // Llenar listas al cargar
   window.onload = () => {
     const unitSelect = document.getElementById('unit');
     const officerSelect = document.getElementById('officer');
 
-    units.forEach(u => {
+    unitList.forEach(u => {
       let opt = document.createElement('option');
-      opt.value = u.id; // Lo que va a SharePoint
-      opt.innerHTML = `UNIT ${u.id} | ${u.info}`;
+      opt.value = u.id; 
+      opt.innerHTML = `UNIT ${u.id} | ${u.name}`;
       unitSelect.appendChild(opt);
     });
 
-    officers.forEach(o => {
+    officerList.forEach(o => {
       let opt = document.createElement('option');
-      opt.value = o.name; // Lo que va a SharePoint
-      opt.innerHTML = `${o.badge} - ${o.name}`;
+      opt.value = o.name; 
+      opt.innerHTML = `BADGE #${o.badge} | ${o.name}`;
       officerSelect.appendChild(opt);
     });
   };
@@ -182,7 +197,7 @@
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
     btn.disabled = true;
-    btn.innerHTML = "Processing...";
+    btn.innerHTML = "SENDING...";
 
     const data = {
       officer: document.getElementById('officer').value,
@@ -199,18 +214,15 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-
       if (response.ok) {
-        alert("✅ Inspection submitted successfully. Report generated.");
+        alert("✅ REPORT SUBMITTED.");
         e.target.reset();
-      } else {
-        throw new Error();
-      }
+      } else { throw new Error(); }
     } catch (err) {
-      alert("⚠️ Error submitting report. Please contact IT.");
+      alert("⚠️ ERROR SENDING DATA.");
     } finally {
       btn.disabled = false;
-      btn.innerHTML = "Submit Inspection";
+      btn.innerHTML = "Submit Report";
     }
   });
 </script>
