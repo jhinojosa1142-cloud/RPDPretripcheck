@@ -37,7 +37,7 @@
     }
 
     .search-panel { 
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
       gap: 20px; background: rgba(0,0,0,0.4); padding: 25px; border-radius: 6px;
       margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1);
     }
@@ -59,7 +59,7 @@
     .btn-search:hover { background: #3498db; transform: translateY(-2px); }
 
     .results-wrapper { overflow-x: auto; background: rgba(0,0,0,0.2); border-radius: 4px; }
-    table { width: 100%; border-collapse: collapse; min-width: 900px; }
+    table { width: 100%; border-collapse: collapse; min-width: 950px; }
     th { background: #000; color: var(--police-red); text-align: left; padding: 15px; font-size: 0.8rem; text-transform: uppercase; border-bottom: 2px solid var(--police-red); }
     td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; }
     
@@ -88,23 +88,23 @@
       <h1 style="margin:0; font-size: 1.8rem;">FLEET INSPECTION SEARCH</h1>
       <span style="color: var(--police-red); font-weight: bold;">ROMA POLICE DEPARTMENT | ADMINISTRATIVE ACCESS</span>
     </div>
-    <img src="logo.png" alt="Logo" style="height: 60px;">
+    <img src="logo.png" alt="Roma PD Shield" style="height: 60px;">
   </header>
 
   <section class="search-panel">
     <div>
-      <label>Vehicle / Unit</label>
+      <label>Vehicle / Unit Number</label>
       <select id="unitSelect">
-        <option value="">-- Select Unit --</option>
+        <option value="">-- View All Units --</option>
       </select>
     </div>
     <div>
-      <label>Officer / ID</label>
+      <label>Officer Name & Badge</label>
       <select id="officerSelect">
-        <option value="">-- Select Officer --</option>
+        <option value="">-- View All Officers --</option>
       </select>
     </div>
-    <button class="btn-search" onclick="executeSearch()">🔍 Search Records</button>
+    <button class="btn-search" onclick="executeSearch()">🔍 Search Database</button>
   </section>
 
   <div class="results-wrapper">
@@ -115,13 +115,13 @@
           <th>Unit Info</th>
           <th>Officer Info</th>
           <th>Odometer</th>
-          <th>Status</th>
-          <th>Report</th>
+          <th>Condition</th>
+          <th>Record</th>
         </tr>
       </thead>
       <tbody id="resultsTableBody">
         <tr>
-          <td colspan="6" class="no-results">Use dropdowns to filter by vehicle or officer.</td>
+          <td colspan="6" class="no-results">Use dropdowns to filter records.</td>
         </tr>
       </tbody>
     </table>
@@ -129,44 +129,81 @@
 </div>
 
 <script>
-  // CONFIGURACIÓN: Reemplaza con tu URL del Flow de Búsqueda
+  // URL de tu Flow de Búsqueda
   const SEARCH_FLOW_URL = "https://defaultc7482209c22b424696d4c965bb5a70.b0.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/5a0139d014a24e3b9ee11c0e60add979/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=-3FRtOlUWZ-o3sJ9JDG73PtzqgHOB4pcNPi2Ii-Qc_8";
 
-  // LISTAS MAESTRAS CON FORMATO COMPLETO
-  // Estas deben coincidir EXACTAMENTE con las que usas en el Formulario de Inspección
+  // --- LISTA OFICIAL DE UNIDADES ---
   const unitList = [
-    { id: "101", name: "Ford Explorer" },
-    { id: "102", name: "Chevy Tahoe" },
-    { id: "103", name: "Dodge Charger" },
-    { id: "108", name: "Ford F-150" },
-    { id: "K9-1", name: "Chevy Tahoe (K9 Unit)" }
+    { id: "100", name: "2012 Dodge Challenger" },
+    { id: "101", name: "2017 Ford Explorer" },
+    { id: "102", name: "2016 Ford Explorer" },
+    { id: "104", name: "2024 Ford Explorer" },
+    { id: "105", name: "2022 Dodge Charger" },
+    { id: "106", name: "2021 Dodge Charger" },
+    { id: "107", name: "2021 Dodge Charger" },
+    { id: "108", name: "2024 Chevrolet Tahoe" },
+    { id: "109", name: "2024 Chevrolet Tahoe" },
+    { id: "110", name: "2018 Chevrolet Tahoe" },
+    { id: "111", name: "2009 Ford F-250" },
+    { id: "112", name: "2023 Dodge Durango" },
+    { id: "113", name: "2018 Chevrolet Tahoe" },
+    { id: "114", name: "2017 Ford Fusion" },
+    { id: "116", name: "2016 Chevrolet Tahoe" },
+    { id: "117", name: "2016 Chevrolet Tahoe" },
+    { id: "118", name: "2019 Ford F-150" },
+    { id: "119", name: "2019 Ford F-150" },
+    { id: "120", name: "2021 Ford F-150" },
+    { id: "121", name: "2021 Ford F-150" },
+    { id: "122", name: "2024 Dodge Durango" },
+    { id: "123", name: "2024 Chevrolet Tahoe" },
+    { id: "124", name: "2024 Dodge Durango" }
   ];
 
+  // --- LISTA OFICIAL DE OFICIALES ---
   const officerList = [
-    { badge: "501", name: "John Smith" },
-    { badge: "502", name: "Maria Garcia" },
-    { badge: "558", name: "Robert Wilson" },
-    { badge: "610", name: "James Anderson" }
+    { badge: "921", name: "Chief Iv Garza Jr." },
+    { badge: "924", name: "Asst. Chief Francisco Garcia" },
+    { badge: "928", name: "Sgt. Mario Madrigal" },
+    { badge: "930", name: "Luis Alberto Morales" },
+    { badge: "931", name: "Alexis Javier Escoto" },
+    { badge: "932", name: "Sgt. Reynaldo Rodriguez Jr." },
+    { badge: "933", name: "Saul Resendez" },
+    { badge: "934", name: "Amber Lee Garza" },
+    { badge: "935", name: "Nereo Garza Jr." },
+    { badge: "937", name: "Roel Roberto Garcia Jr." },
+    { badge: "938", name: "Lt. Juan Abel Alaniz" },
+    { badge: "940", name: "Lino Cavazos Jr." },
+    { badge: "942", name: "Nelson Martinez" },
+    { badge: "943", name: "Jorge Daniel Oyervides Jr." },
+    { badge: "945", name: "Jesse Guerra" },
+    { badge: "946", name: "Monique Eliane Rosa" },
+    { badge: "947", name: "Javier Herrera Jr." },
+    { badge: "948", name: "Alex M. Garcia" },
+    { badge: "949", name: "Daniel de la Cruz" },
+    { badge: "950", name: "Josue Isai Resendez" },
+    { badge: "952", name: "Cpl. Osiel Josue Canales" },
+    { badge: "956", name: "Christian Emmanuel Diaz" },
+    { badge: "957", name: "Cpl. Leonel Garza Jr." },
+    { badge: "2203", name: "Det. Roberto Garza" },
+    { badge: "2204", name: "Det. Ivan Garza" },
+    { badge: "2206", name: "Francisco Xavier Treviño" }
   ];
 
-  // Llenar Dropdowns al iniciar
   window.onload = () => {
     const unitSelect = document.getElementById('unitSelect');
     const officerSelect = document.getElementById('officerSelect');
 
     unitList.forEach(u => {
       let opt = document.createElement('option');
-      // El valor que se envía a la búsqueda es solo el ID para precisión
       opt.value = u.id; 
-      opt.innerHTML = `${u.id} - ${u.name}`;
+      opt.innerHTML = `UNIT ${u.id} | ${u.name}`;
       unitSelect.appendChild(opt);
     });
 
     officerList.forEach(o => {
       let opt = document.createElement('option');
-      // Buscaremos por el nombre o el badge según como guardes en SharePoint
       opt.value = o.name; 
-      opt.innerHTML = `ID #${o.badge} | ${o.name}`;
+      opt.innerHTML = `BADGE #${o.badge} | ${o.name}`;
       officerSelect.appendChild(opt);
     });
   };
@@ -176,7 +213,7 @@
     const unit = document.getElementById('unitSelect').value;
     const officer = document.getElementById('officerSelect').value;
 
-    tableBody.innerHTML = '<tr><td colspan="6" class="no-results">⏳ Fetching encrypted records...</td></tr>';
+    tableBody.innerHTML = '<tr><td colspan="6" class="no-results">⏳ Retrieving official logs...</td></tr>';
 
     try {
       const response = await fetch(SEARCH_FLOW_URL, {
@@ -188,7 +225,7 @@
       const data = await response.json();
 
       if (!data || data.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="6" class="no-results">❌ No matching logs found in database.</td></tr>';
+        tableBody.innerHTML = '<tr><td colspan="6" class="no-results">❌ No records found in the database.</td></tr>';
         return;
       }
 
@@ -210,8 +247,8 @@
 
         row.innerHTML = `
           <td>${dateStr}</td>
-          <td style="font-weight:bold; color:white;">${item.UnitNumber || item.Title || 'N/A'}</td>
-          <td>${item.OfficerName || 'N/A'}</td>
+          <td style="font-weight:bold; color:white;">UNIT ${item.UnitNumber || item.Title}</td>
+          <td>${item.OfficerName}</td>
           <td>${item.Odometer || '0'} mi</td>
           <td>
             <span class="badge ${hasDamage ? 'badge-danger' : 'badge-success'}">
@@ -220,7 +257,7 @@
           </td>
           <td>
             ${pdfUrl !== "#" 
-              ? `<a href="${pdfUrl}" target="_blank" class="btn-print">📄 GET PDF</a>` 
+              ? `<a href="${pdfUrl}" target="_blank" class="btn-print">📄 VIEW PDF</a>` 
               : `<span style="color:#555; font-size:0.8rem;">Processing...</span>`}
           </td>
         `;
@@ -229,7 +266,7 @@
 
     } catch (error) {
       console.error(error);
-      tableBody.innerHTML = '<tr><td colspan="6" class="no-results" style="color:var(--police-red);">⚠️ Error connecting to PD Cloud.</td></tr>';
+      tableBody.innerHTML = '<tr><td colspan="6" class="no-results" style="color:var(--police-red);">⚠️ Connection Failed. Verify Flow URL.</td></tr>';
     }
   }
 </script>
