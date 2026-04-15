@@ -22,7 +22,7 @@
     }
 
     .form-card { 
-      width: 100%; max-width: 650px; 
+      width: 100%; max-width: 700px; 
       background: var(--police-navy); 
       padding: 40px; border-radius: 12px; 
       border-top: 6px solid var(--police-red);
@@ -31,36 +31,39 @@
 
     header { text-align: center; margin-bottom: 35px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
     header img { height: 90px; margin-bottom: 15px; }
-    header h1 { margin: 0; font-size: 1.6rem; letter-spacing: 2px; color: var(--text-white); }
-    header p { margin: 5px 0 0; color: var(--police-red); font-weight: bold; font-size: 0.9rem; }
+    header h1 { margin: 0; font-size: 1.6rem; letter-spacing: 2px; }
+    header p { margin: 5px 0 0; color: var(--police-red); font-weight: bold; }
 
-    .form-group { margin-bottom: 25px; }
-    label { display: block; margin-bottom: 10px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; color: var(--police-gold); letter-spacing: 1px; }
+    .section-title { 
+      color: var(--police-gold); font-size: 0.9rem; font-weight: bold; 
+      text-transform: uppercase; margin: 30px 0 15px; border-left: 3px solid var(--police-red); padding-left: 10px;
+    }
+
+    .form-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.85rem; color: #bdc3c7; }
     
     select, input, textarea { 
-      width: 100%; padding: 14px; 
-      background: rgba(0,0,0,0.5); border: 1px solid #34495e; 
-      color: #fff; border-radius: 6px; box-sizing: border-box; 
-      font-size: 1rem; transition: all 0.3s;
+      width: 100%; padding: 12px; background: rgba(0,0,0,0.5); border: 1px solid #34495e; 
+      color: #fff; border-radius: 6px; box-sizing: border-box; font-size: 1rem;
     }
 
-    select:focus, input:focus, textarea:focus { 
-      border-color: var(--police-red); outline: none; 
-      box-shadow: 0 0 8px rgba(198, 40, 40, 0.4);
+    /* Estilo de la Checklist */
+    .checklist-grid { 
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+      gap: 10px; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px;
     }
 
-    .checkbox-container { 
-      display: flex; align-items: center; 
-      background: rgba(0,0,0,0.3); padding: 15px; border-radius: 6px; 
-      border: 1px dashed #34495e; cursor: pointer;
+    .check-item { 
+      display: flex; align-items: center; gap: 10px; font-size: 0.9rem; 
+      padding: 8px; border-radius: 4px; transition: 0.2s;
     }
-    .checkbox-container input { width: auto; margin-right: 15px; transform: scale(1.3); }
+    .check-item:hover { background: rgba(255,255,255,0.05); }
+    .check-item input { width: auto; transform: scale(1.2); cursor: pointer; }
 
     .btn-submit { 
-      width: 100%; background: var(--police-red); color: white; 
-      border: none; padding: 18px; font-size: 1.1rem; font-weight: bold; 
-      cursor: pointer; border-radius: 6px; text-transform: uppercase;
-      transition: 0.3s; margin-top: 10px;
+      width: 100%; background: var(--police-red); color: white; border: none; 
+      padding: 18px; font-size: 1.1rem; font-weight: bold; cursor: pointer; 
+      border-radius: 6px; text-transform: uppercase; margin-top: 30px;
     }
     .btn-submit:hover { background: #e53935; transform: translateY(-2px); }
 
@@ -71,12 +74,13 @@
 
 <div class="form-card">
   <header>
-    <img src="logo.png" alt="Roma PD Shield">
+    <img src="logo.png" alt="Roma PD">
     <h1>VEHICLE INSPECTION</h1>
     <p>ROMA POLICE DEPARTMENT</p>
   </header>
 
   <form id="inspectionForm">
+    <div class="section-title">Personnel & Unit</div>
     <div class="form-group">
       <label>Officer Name & Badge</label>
       <select id="officer" required>
@@ -92,32 +96,45 @@
     </div>
 
     <div class="form-group">
-      <label>Odometer Reading (Mileage)</label>
-      <input type="number" id="odometer" placeholder="Enter miles" required>
+      <label>Current Odometer</label>
+      <input type="number" id="odometer" placeholder="Enter mileage" required>
     </div>
+
+    <div class="section-title">Equipment Checklist (Check if Functional)</div>
+    <div class="checklist-grid">
+      <label class="check-item"><input type="checkbox" class="check" value="emergency_lights"> Emergency Lights</label>
+      <label class="check-item"><input type="checkbox" class="check" value="siren"> Siren & PA System</label>
+      <label class="check-item"><input type="checkbox" class="check" value="radio"> Police Radio</label>
+      <label class="check-item"><input type="checkbox" class="check" value="tires"> Tires Condition</label>
+      <label class="check-item"><input type="checkbox" class="check" value="brakes"> Brakes System</label>
+      <label class="check-item"><input type="checkbox" class="check" value="fluids"> Oil/Fluids Level</label>
+      <label class="check-item"><input type="checkbox" class="check" value="interior"> Interior Cleanliness</label>
+      <label class="check-item"><input type="checkbox" class="check" value="exterior"> Exterior Body</label>
+      <label class="check-item"><input type="checkbox" class="check" value="fuel"> Fuel Level (Full)</label>
+      <label class="check-item"><input type="checkbox" class="check" value="camera"> In-Car Camera</label>
+    </div>
+
+    <div class="section-title">Maintenance Report</div>
+    <label class="check-item" style="background: rgba(198, 40, 40, 0.1); border: 1px solid var(--police-red); margin-bottom: 15px;">
+      <input type="checkbox" id="damage_reported"> 
+      <span style="color: var(--police-red); font-weight: bold;">REPORT NEW DAMAGE OR ISSUES</span>
+    </label>
 
     <div class="form-group">
-      <label class="checkbox-container">
-        <input type="checkbox" id="damage_reported">
-        <span>Report Damage / Mechanical Issues?</span>
-      </label>
+      <label>Detailed Notes</label>
+      <textarea id="notes" rows="4" placeholder="Describe any defects or equipment needs..."></textarea>
     </div>
 
-    <div class="form-group">
-      <label>Additional Notes</label>
-      <textarea id="notes" rows="4" placeholder="Describe any issues..."></textarea>
-    </div>
-
-    <button type="submit" class="btn-submit" id="submitBtn">Submit Report</button>
+    <button type="submit" class="btn-submit" id="submitBtn">Submit Official Report</button>
   </form>
 
-  <footer>CITY OF ROMA, TEXAS | OFFICIAL LOG</footer>
+  <footer>CITY OF ROMA, TEXAS | PUBLIC SAFETY DIVISION</footer>
 </div>
 
 <script>
-  const FLOW_URL = "https://defaultc7482209c22b424696d4c965bb5a70.b0.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/a32eaff0a7bb4c1bbf730df99b5f3525/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=i3nXR2iPrDMLenk3RsZCZfMr4FVBZgH00dxCpDxAZ04";
+  const FLOW_URL = "TU_URL_DE_FLOW_DE_INSPECCION_AQUI";
 
-  // LISTA COMPLETA DE UNIDADES (23 UNIDADES)
+  // LISTA DE UNIDADES (23)
   const unitList = [
     { id: "100", name: "2012 Dodge Challenger" },
     { id: "101", name: "2017 Ford Explorer" },
@@ -144,9 +161,9 @@
     { id: "124", name: "2024 Dodge Durango" }
   ];
 
-  // LISTA COMPLETA DE OFICIALES (26 OFICIALES)
+  // LISTA DE OFICIALES (26)
   const officerList = [
-    { badge: "921", name: "Chief Iv Garza Jr." },
+   { badge: "921", name: "Chief Iv Garza Jr." },
     { badge: "924", name: "Asst. Chief Francisco Garcia" },
     { badge: "928", name: "Sgt. Mario Madrigal" },
     { badge: "930", name: "Luis Alberto Morales" },
@@ -177,27 +194,26 @@
   window.onload = () => {
     const unitSelect = document.getElementById('unit');
     const officerSelect = document.getElementById('officer');
-
     unitList.forEach(u => {
-      let opt = document.createElement('option');
-      opt.value = u.id; 
-      opt.innerHTML = `UNIT ${u.id} | ${u.name}`;
-      unitSelect.appendChild(opt);
+      let opt = document.createElement('option'); opt.value = u.id;
+      opt.innerHTML = `UNIT ${u.id} | ${u.name}`; unitSelect.appendChild(opt);
     });
-
     officerList.forEach(o => {
-      let opt = document.createElement('option');
-      opt.value = o.name; 
-      opt.innerHTML = `BADGE #${o.badge} | ${o.name}`;
-      officerSelect.appendChild(opt);
+      let opt = document.createElement('option'); opt.value = o.name;
+      opt.innerHTML = `BADGE #${o.badge} | ${o.name}`; officerSelect.appendChild(opt);
     });
   };
 
   document.getElementById('inspectionForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.innerHTML = "SENDING...";
+    btn.disabled = true; btn.innerHTML = "TRANSMITTING...";
+
+    // Recopilar checklist
+    const checklist = {};
+    document.querySelectorAll('.check').forEach(box => {
+      checklist[box.value] = box.checked;
+    });
 
     const data = {
       officer: document.getElementById('officer').value,
@@ -205,6 +221,7 @@
       odometer: document.getElementById('odometer').value,
       damage_reported: document.getElementById('damage_reported').checked,
       notes: document.getElementById('notes').value,
+      checklist: checklist, // Se envía como objeto a Power Automate
       date: new Date().toISOString()
     };
 
@@ -215,14 +232,13 @@
         body: JSON.stringify(data)
       });
       if (response.ok) {
-        alert("✅ REPORT SUBMITTED.");
+        alert("✅ REPORT SUBMITTED TO ROMA PD CLOUD.");
         e.target.reset();
       } else { throw new Error(); }
     } catch (err) {
-      alert("⚠️ ERROR SENDING DATA.");
+      alert("⚠️ CONNECTION ERROR.");
     } finally {
-      btn.disabled = false;
-      btn.innerHTML = "Submit Report";
+      btn.disabled = false; btn.innerHTML = "Submit Official Report";
     }
   });
 </script>
